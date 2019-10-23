@@ -2471,6 +2471,9 @@
             <name>$PROJ_DIR$\..\..\drivers\peripherals\rtc.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\drivers\sdmmc\sdmmc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\drivers\security\secumod.c</name>
         </file>
         <file>
@@ -2541,6 +2544,21 @@
         </file>
     </group>
     <group>
+        <name>lib</name>
+        <file>
+            <name>$PROJ_DIR$\..\..\lib\fatfs\src\option\ccsbcs.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\lib\fatfs\src\ff.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\lib\libsdmmc\sdmmc_api.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\lib\libsdmmc\sdmmc_ff.c</name>
+        </file>
+    </group>
+    <group>
         <name>target</name>
         <file>
             <name>$PROJ_DIR$\..\..\target\common\board_adc.c</name>
@@ -2595,6 +2613,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\user\pwm_test.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\sd_test.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\user\spi_test.c</name>
