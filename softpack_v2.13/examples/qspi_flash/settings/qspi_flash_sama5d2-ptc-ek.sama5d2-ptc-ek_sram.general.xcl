@@ -1,0 +1,15 @@
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armproc.dll" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armjlink2.dll" 
+
+"H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\build\sama5d2-ptc-ek\sram\Exe\qspi_flash.out" 
+
+--plugin="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armbat.dll" 
+
+--device_macro="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\config\debugger\Microchip\SAMA5D2.dmac" 
+
+--macro="H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\..\..\target\sama5d2\toolchain\iar\sram.mac" 
+
+
+
+

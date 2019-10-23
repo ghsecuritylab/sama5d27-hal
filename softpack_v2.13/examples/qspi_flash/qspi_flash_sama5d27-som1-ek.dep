@@ -1,0 +1,1343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>4</fileVersion>
+    <fileChecksum>2511723947</fileChecksum>
+    <configuration>
+        <name>sama5d27-som1-ek_ddram</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\..\arch\arm\fault_handlers.c</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\l1cache_cp15.c</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\mmu_cp15.c</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\mutex.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\analog\adc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\analog\adcd.c</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_qspi.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_rstc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_rtc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_rxlp.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sckc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sdmmc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_secumod.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sfc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sfr.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sfrbu.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_sha.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_shdwc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_smc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_spi.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_ssc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_tc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_tdes.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_trng.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_twi.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_uart.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_usart.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_udphs.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_wdt.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_xdmac.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\pio\pio_sama5d2_289pin.h</file>
+            <file>$PROJ_DIR$\..\..\target\common\chip_common.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\chip_pins.h</file>
+            <file>$PROJ_DIR$\..\..\target\common\chip_pins_flexcom.h</file>
+            <file>$PROJ_DIR$\..\..\utils\trace.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$PROJ_DIR$\..\..\arch\irqflags.h</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\irqflags.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\irq\aic.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\irq\irq.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\matrix.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\assert.h</file>
+            <file>$PROJ_DIR$\..\..\utils\errno.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\mm\cache.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\pmc.h</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\mmu_cp15.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\mm\mmu.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\mm\l1cache.h</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pit.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pmc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\piobu.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mpddrc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pio4.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pwmc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\nfc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\matrix.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfdp.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfrbu.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\shdwc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\slowclock_sckc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\smc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-flash.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_sama5d27-som1-ek.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_spi.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_support.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_timer.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\chip.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\chip_common.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\callback.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\intmath.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rand.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\syscalls.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\timer.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\trace.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\main.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Exe\qspi_flash.out</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-nor-ids.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-nor.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spid.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\tc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\tcd.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\trng.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\uart.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\usart.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\usartd.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\xdmac.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_console.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_sama5d27-som1-ek.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_spi.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_support.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_timer.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\chip.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Exe\qspi_flash.bin</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$PROJ_DIR$\..\..\utils\io.h</file>
+            <file>$PROJ_DIR$\..\..\utils\callback.h</file>
+            <file>$PROJ_DIR$\..\..\arch\mutex.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\dma.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\dma_xdmac.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\xdmac.h</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi_test.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi_test.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\qspi.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rstc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rtc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\secumod.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\seriald.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\chip_common.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\callback.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\intmath.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rand.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\syscalls.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\timer.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\trace.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\main.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\cstartup.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\fault_handlers.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\l1cache_cp15.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mmu_cp15.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mutex.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\aic5.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\bus.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\cache.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\console.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\ddram.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\dma.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\dma_xdmac.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\flexcom.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\irq.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\l2cache_l2cc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\matrix.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mpddrc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\nfc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pio4.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\piobu.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pit.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pmc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\pwmc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\qspi.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rstc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\rtc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\secumod.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\seriald.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfdp.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\sfrbu.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\shdwc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\slowclock_sckc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\smc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-flash.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-nor-ids.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi-nor.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spi.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\spid.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\tc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\tcd.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\trng.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\uart.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\usart.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\usartd.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\wdt.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\xdmac.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_console.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_led.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_led.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\led.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\led.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\wdt.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\fault_handlers.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\l1cache_cp15.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mutex.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mmu_cp15.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\aic5.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\bus.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\cache.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\console.o</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\fault_handlers.h</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\barriers.h</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\cp15.h</file>
+            <file>$PROJ_DIR$\..\..\arch\arm\cpuidle.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\analog\adc.h</file>
+            <file>$PROJ_DIR$\..\..\drivers\analog\adcd.h</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_adc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_adc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adc_test.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adc_test.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adcd.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adc.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adcd.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\adc.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\ddram.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\dma.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\dma_xdmac.o</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_mcan.h</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\flexcom.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\can_test.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mcan.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mcand.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mcand.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\mcan.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\qspi_flash_sama5d27-som1-ek.pbd</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\can-bus.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\can-bus.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\can_test.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_can.pbi</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\board_can.o</file>
+            <file>$PROJ_DIR$\..\..\drivers\irq\aic5.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\bus.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\mm\cache.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\can\can-bus.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\serial\console.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\extram\ddram.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\dma.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\dma_xdmac.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\flexcom.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\irq\irq.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\mm\l2cache_l2cc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\led\led.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\matrix.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\can\mcan.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\can\mcand.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\extram\mpddrc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\nand\nfc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\gpio\pio4.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\gpio\piobu.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\pit.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\pmc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\pwmc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\spi\qspi.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\rstc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\rtc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\security\secumod.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\serial\seriald.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\sfc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\sfdp.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\sfrbu.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\shdwc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\slowclock_sckc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\extram\smc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-flash.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-nor-ids.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-nor.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\spi\spi.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\spi\spid.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\tc.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\tcd.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\crypto\trng.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\serial\uart.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\serial\usart.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\serial\usartd.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\peripherals\wdt.c</file>
+            <file>$PROJ_DIR$\..\..\drivers\dma\xdmac.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_adc.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_can.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_console.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_led.c</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\board_sama5d27-som1-ek.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_spi.c</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\board_support.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\board_timer.c</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\chip.c</file>
+            <file>$PROJ_DIR$\..\..\target\common\chip_common.c</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\toolchain\iar\cstartup.s</file>
+            <file>$PROJ_DIR$\user\adc_test.c</file>
+            <file>$PROJ_DIR$\user\can_test.c</file>
+            <file>$PROJ_DIR$\user\spi_test.c</file>
+            <file>$PROJ_DIR$\..\..\utils\callback.c</file>
+            <file>$PROJ_DIR$\..\..\utils\intmath.c</file>
+            <file>$PROJ_DIR$\..\..\utils\rand.c</file>
+            <file>$PROJ_DIR$\..\..\utils\syscalls.c</file>
+            <file>$PROJ_DIR$\..\..\utils\timer.c</file>
+            <file>$PROJ_DIR$\..\..\utils\trace.c</file>
+            <file>$PROJ_DIR$\main.c</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\irq.o</file>
+            <file>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Obj\l2cache_l2cc.o</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\chip.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\sama5d2.h</file>
+            <file>$PROJ_DIR$\..\..\utils\compiler.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\iar_intrinsics_common.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_acc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_adc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_aesb.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_aes.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_aic.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_aximx.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_bsc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_chipid.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_classd.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_flexcom.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_gmac.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_i2sc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_icm.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_isc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_l2cc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_lcdc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_matrix.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_mpddrc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_nfc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pdmic.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pio.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pit.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pmc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pmecc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pmerrloc.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_ppp.h</file>
+            <file>$PROJ_DIR$\..\..\target\sama5d2\component\component_pwm.h</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 76</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\arch\arm\fault_handlers.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 172</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 120</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 282 36 284 35 283 285 286 180</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\arch\arm\l1cache_cp15.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 173</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 121</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 316 302 18 294 10 26 292 42 288 32 283 286 298 306 312 6 14 22 182 281 285 289 296 300 304 308 310 314 318 8 12 16 20 24 28 290 181 48 287 31 282 284 293 295 297 299 301 303 305 307 309 198 311 313 315 317 319 7 9 11 13 15 17 19 21 23 25 27 29 30 291 280 33</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\arch\arm\mmu_cp15.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 175</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 122</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 284 48 286 282 287 182 42 291 285 181 46 47 290 292 283 281 289</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\arch\arm\mutex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 174</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 123</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 319 305 21 31 297 311 13 29 293 301 309 315 9 17 25 30 291 287 283 284 281 295 299 303 307 198 313 317 7 11 15 19 23 27 280 288 32 282 285 286 289 294 296 298 300 302 304 306 308 310 312 314 316 318 6 8 10 12 14 16 18 20 22 24 26 28 290 292 33 181 99 183</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\analog\adc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 194</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 192</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 281 296 12 310 28 285 304 318 20 42 289 300 308 314 8 16 24 290 283 45 288 32 286 294 298 302 306 312 316 6 10 14 18 22 26 292 185 34 35 287 31 282 284 293 295 297 299 301 303 305 307 309 198 311 313 315 317 319 7 9 11 13 15 17 19 21 23 25 27 29 30 291 280 33 36</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\analog\adcd.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 193</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 191</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 283 307 23 97 281 7 44 299 313 15 185 282 287 295 303 198 317 11 19 27 98 100 34 284 31 32 293 297 301 305 309 311 315 319 9 13 17 21 25 29 30 291 35 184 95 186 40 45 285 286 36 96 99 280 101 288 289 294 296 298 300 302 304 306 308 310 312 314 316 318 6 8 10 12 14 16 18 20 22 24 26 28 290 292 33 102 42</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\build\sama5d27-som1-ek\ddram\Exe\qspi_flash.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 94</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\irq\aic5.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 176</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 124</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 291 309 30 25 293 9 43 301 315 17 40 287 282 297 305 311 319 13 21 29 35 37 281 31 284 295 299 303 307 198 313 317 7 11 15 19 23 27 283 34 39 41 42 288 32 285 286 289 294 296 298 300 302 304 306 308 310 312 314 316 318 6 8 10 12 14 16 18 20 22 24 26 28 290 292 33 280 36 38</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\bus.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 177</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 125</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\mm\cache.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 178</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 126</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\can\can-bus.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 207</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 206</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\serial\console.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 179</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 127</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\extram\ddram.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 195</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 128</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\dma\dma.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 196</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 129</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\dma\dma_xdmac.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 197</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 130</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\flexcom.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 199</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 131</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\irq\irq.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 278</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 132</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\mm\l2cache_l2cc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 279</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 133</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\led\led.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 170</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 169</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\matrix.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 56</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 134</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\can\mcan.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 204</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 201</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\can\mcand.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 203</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 202</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\extram\mpddrc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 52</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 135</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\nand\nfc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 55</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 136</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\gpio\pio4.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 53</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 137</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\gpio\piobu.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 51</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 138</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\pit.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 49</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 139</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\pmc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 50</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 140</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\pwmc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 54</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 141</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\spi\qspi.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 105</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 142</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\rstc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 106</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 143</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\rtc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 107</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 144</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\security\secumod.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 108</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 145</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\serial\seriald.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 109</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 146</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\sfc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 110</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 147</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\sfdp.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 57</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 148</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\sfrbu.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 58</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 149</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\shdwc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 59</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 150</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\slowclock_sckc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 60</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 151</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\extram\smc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 61</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 152</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-flash.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 62</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 153</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-nor-ids.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 77</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 154</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\spi-nor\spi-nor.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 78</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 155</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\spi\spi.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 79</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 156</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\spi\spid.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 80</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 157</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\tc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 81</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 158</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\tcd.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 82</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 159</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\crypto\trng.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 83</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 160</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\serial\uart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 84</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 161</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\serial\usart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 85</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 162</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\serial\usartd.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 86</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 163</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\peripherals\wdt.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 171</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 164</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\dma\xdmac.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 87</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 165</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_adc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 187</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 188</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_can.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 210</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 209</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_console.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 88</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 166</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_led.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 167</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 168</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\sama5d2\board_sama5d27-som1-ek.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 89</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 63</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_spi.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 90</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 64</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\sama5d2\board_support.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 91</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 65</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_timer.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 92</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 66</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\sama5d2\chip.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 93</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 67</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\common\chip_common.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 111</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 68</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\target\sama5d2\toolchain\iar\cstartup.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 119</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\adc_test.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 189</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 190</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\can_test.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 208</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 200</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\spi_test.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 103</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 104</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\callback.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 112</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 69</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\intmath.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 113</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 70</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\rand.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 114</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 71</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\syscalls.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 72</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\timer.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 116</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 73</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\utils\trace.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 117</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 74</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 118</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 75</file>
+                </tool>
+            </outputs>
+        </file>
+    </configuration>
+    <configuration>
+        <name>sama5d27-som1-ek_sram</name>
+        <outputs />
+        <forcedrebuild>
+            <name>[MULTI_TOOL]</name>
+            <tool>ILINK</tool>
+        </forcedrebuild>
+    </configuration>
+</project>

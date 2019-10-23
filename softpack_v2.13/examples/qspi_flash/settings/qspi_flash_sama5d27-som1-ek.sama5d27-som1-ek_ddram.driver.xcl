@@ -1,0 +1,27 @@
+"--endian=little" 
+
+"--cpu=Cortex-A5" 
+
+"--fpu=VFPv4_D16" 
+
+"-p" 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\CONFIG\debugger\Microchip\ATSAMA5D27.ddf" 
+
+"--drv_verify_download" 
+
+"--semihosting=none" 
+
+"--device=ATSAMA5D27" 
+
+"--drv_communication=USB0" 
+
+"--drv_interface_speed=auto" 
+
+"--jlink_initial_speed=100" 
+
+"--drv_catch_exceptions=0x000" 
+
+
+
+

@@ -89,6 +89,7 @@
 #include "peripherals/pmc.h"
 
 #include "trace.h"
+#include "assert.h"
 
 #include <stdio.h>
 
@@ -100,6 +101,9 @@
 /* for compatibility with older peripheral versions */
 #define ADC_MR_TRANSFER(x) 0
 #endif
+
+/* Max. ADC Clock Frequency (Hz) */
+#define ADC_CLOCK_MAX   20000000
 
 /*----------------------------------------------------------------------------
  *        Local variables
