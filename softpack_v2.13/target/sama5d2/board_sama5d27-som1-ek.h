@@ -358,4 +358,15 @@ struct _board_info {
 
 #define AT24_INFO_SIZE sizeof(struct _board_info)
 
+
+/** TWI master bus used to communicate with emulator */
+#define AT24_EMU_MASTER_BUS BUS(BUS_TYPE_I2C, 2)
+/** TWI slave AT24 address */
+#define AT24_EMU_ADDR 0x53
+/** TWI slave pins definition **/
+#define AT24_EMU_PINS PINS_FLEXCOM3_TWI_IOS2
+/** TWI slave device definition */
+#define AT24_EMU_DEV FLEXTWI3
+
+
 #endif /* #ifndef _BOARD_D2_H */

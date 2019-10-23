@@ -2396,6 +2396,9 @@
             <name>$PROJ_DIR$\..\..\drivers\irq\aic5.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\drivers\nvm\i2c\at24.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\drivers\peripherals\bus.c</name>
         </file>
         <file>
@@ -2516,6 +2519,12 @@
             <name>$PROJ_DIR$\..\..\drivers\crypto\trng.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\drivers\i2c\twi.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\drivers\i2c\twid.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\drivers\serial\uart.c</name>
         </file>
         <file>
@@ -2558,6 +2567,9 @@
             <name>$PROJ_DIR$\..\..\target\common\board_timer.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\target\common\board_twi.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\target\sama5d2\chip.c</name>
         </file>
         <file>
@@ -2573,7 +2585,16 @@
             <name>$PROJ_DIR$\user\adc_test.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\user\at24_emulator.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\user\can_test.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\i2c_test.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\user\pwm_test.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\user\spi_test.c</name>

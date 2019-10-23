@@ -86,6 +86,7 @@
 
 #include "board.h"
 #include "board_spi.h"
+#include "board_twi.h"
 #include "chip.h"
 #include "compiler.h"
 #include "crypto/trng.h"
@@ -93,6 +94,8 @@
 #include "mm/cache.h"
 #include "can/can-bus.h"
 #include "nvm/spi-nor/spi-nor.h"
+#include "nvm/i2c/at24.h"
+#include "at24_emulator.h"
 #include "peripherals/pmc.h"
 #include "serial/console.h"
 #include "spi/qspi.h"
@@ -127,4 +130,14 @@ int main(void)
          * 6. Test CAN
          **********************************/
         can_test();
+        
+         /***********************************
+         * 7. Test I2C(TWIHS)
+         **********************************/
+        i2c_test();
+        
+        /***********************************
+         * 8. Test PWM
+         **********************************/
+        pwm_test();
 }
