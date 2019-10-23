@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>usart_lin example </iar_name>               <!--App-->
+  <iar_description>
+
+ The LIN example will help new users get familiar
+ with the FLEXCOM-USART used in Atmel's SAMA5D2x microcontrollers.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

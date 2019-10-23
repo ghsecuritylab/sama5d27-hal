@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>crypto-aes example </iar_name>               <!--App-->
+  <iar_description>
+
+ This application demonstrates the Advanced Encryption Standard (AES)
+ peripheral integrated in some SAMA5D microcontrollers. It encrypts and
+ decrypts several test values in Electronic Code Book (ECB), Cipher Block
+ Chaining (CBC), OBC, OFB and TRC modes, and checks the processed data
+ against the known answers.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

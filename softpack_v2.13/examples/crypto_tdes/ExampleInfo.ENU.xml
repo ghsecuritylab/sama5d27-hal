@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>crypto-tdes example </iar_name>               <!--App-->
+  <iar_description>
+
+ This application demonstrates the Triple Data Encryption Algorithm (TDES)
+ peripheral integrated in some SAMA5Dxx microcontrollers. It encrypts and
+ decrypts a test buffer in Electronic Code Book (ECB), Cipher Block Chaining
+ (CBC), Output Feedback (OFB), and Cipher Feedback (CFB) modes, and checks the
+ decrypted data against the expected result.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

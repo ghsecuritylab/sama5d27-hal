@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$/usb_uvc_isi_sam9g25-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/usb_uvc_isi_sama5d4-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/usb_uvc_isi_sama5d3-ek.ewp</path>
+  </project>
+</workspace>

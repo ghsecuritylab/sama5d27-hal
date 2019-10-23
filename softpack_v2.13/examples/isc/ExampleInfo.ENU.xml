@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>isc example </iar_name>               <!--App-->
+  <iar_description>
+
+ This example demonstrates the ISC (Image Sensor controller) of an SAMA5D2
+ Xplained board.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

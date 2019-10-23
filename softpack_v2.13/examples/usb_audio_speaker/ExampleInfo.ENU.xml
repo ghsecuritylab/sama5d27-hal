@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>usb_audio_speaker example </iar_name>               <!--App-->
+  <iar_description>
+
+  The USB Audio Speaker Example will help you to get familiar with the
+  USB Device Port(UDP) and CLASSD on SAMA5D2 microcontrollers. Also
+  it can help you to be familiar with the USB Framework that is used for
+  rapid development of USB-compliant class drivers such as USB Audio Device
+  class.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

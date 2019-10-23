@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
+     xml:lang="en">
+  <head>
+    <title>Information Center for ARM - EXAMPLE PROJECTS</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" media="all" href="file://$TOOLKIT_DIR$/doc/infocenter/style/ewic.css" />
+  </head>
+  <body>
+  <div id="topbanner"></div>
+  <div id="titlebanner_small">
+    <h2>Information Center for ARM</h2>
+  </div>
+  <div class="ppcol">
+  <table class="ppcol">
+   <tr class="link1">
+     <td></td>
+     <td></td>
+   </tr>
+  </table>
+  </div>
+  <div class="breadcrumb"><a href="file://$TOOLKIT_DIR$/doc/infocenter/index.ENU.html">Information Center for ARM</a> | EXAMPLES</div>
+  <div class="mainblock">
+   <p> Description:
+
+  The demonstration program reset WDT at regular interval without provoking any
+  error underflow interrupt. User can choose to generate interrupt(underflow/error)
+  and choose if WDT generates interrupt or resets the system.
+  By default WDT is Counter value is set to 10 sec and Delta counter value is set
+  to 6 sec and fault interrupt is enable and WDT reset disable.
+  WDT values can not be changed or it can not be put to reset within first 4 sec
+  (forbidden window)after it starts. Doing so will generate fault interrupt
+  and it restart. Resetting WDT before it reaches zero and after 4 seconds has
+  past will reset it properly without generating any fault or interrupt. If it
+  does not get re-serviced before 10 seconds it will generate underflow error
+  and depending on whether reset is enabled or not it will reset the system.
+
+</p>
+  </div>
+  </body>
+</html>

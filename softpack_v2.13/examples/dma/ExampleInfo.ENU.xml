@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>dma example </iar_name>               <!--App-->
+  <iar_description>
+
+ The DMA example will help new users get familiar with Atmel's
+ SAM9XX5/SAMA5 family of microcontrollers. This basic application shows the
+ DMA transfer with single/multiple Microblock and LLI transfer.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

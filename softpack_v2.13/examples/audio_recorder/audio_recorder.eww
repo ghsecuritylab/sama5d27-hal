@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sam9g15-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sam9g25-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sam9g35-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sam9x25-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sam9x35-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sama5d2-xplained.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sama5d4-ek.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/audio_recorder_sama5d3-ek.ewp</path>
+  </project>
+</workspace>

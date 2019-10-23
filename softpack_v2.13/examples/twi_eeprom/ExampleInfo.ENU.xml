@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>twi_eeprom example </iar_name>               <!--App-->
+  <iar_description>
+
+ This example indicates how to use the TWI with AT24 driver in order to
+ access data on a real AT24 device and on an emulated AT24 using a TWI slave
+ port.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

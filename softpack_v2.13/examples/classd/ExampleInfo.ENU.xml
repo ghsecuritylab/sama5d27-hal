@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>classd example </iar_name>               <!--App-->
+  <iar_description>
+
+ The CLASSD example will help new users get familiar with Atmel's
+ SAMA5D2X family of microcontrollers. This basic application shows the
+ usage of CLASSD and can play the demonstration music with speaker.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

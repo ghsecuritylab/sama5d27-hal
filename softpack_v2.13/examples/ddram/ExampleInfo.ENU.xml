@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>ddram example </iar_name>               <!--App-->
+  <iar_description>
+
+  The DDRAM example will help new users get familiar with Atmel's
+  SAMA5 family of micro-controllers. This basic application shows how
+  to initialize and perform read and write a DDRAM memory.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

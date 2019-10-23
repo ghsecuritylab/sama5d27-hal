@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>lcd example </iar_name>               <!--App-->
+  <iar_description>
+
+  This example demonstrates how to configure the LCD Controller (LCDC)
+  to use the LCD on the board.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

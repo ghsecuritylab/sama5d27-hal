@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>crypto-sha example </iar_name>               <!--App-->
+  <iar_description>
+
+ This example demonstrates the Secure Hash Algorithm (SHA) peripheral
+ available on the Atmel SAMA5D microcontrollers. It takes FIPS-compliant
+ tests (American Federal Information Processing Standard, Publication 180-2)
+ and checks them against the known answers.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

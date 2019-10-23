@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$/eefc_samv71-xplained.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$/eefc_same70-xplained.ewp</path>
+  </project>
+</workspace>

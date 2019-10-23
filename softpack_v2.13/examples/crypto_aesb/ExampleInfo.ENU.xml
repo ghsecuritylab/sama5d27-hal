@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>crypto-aesb example </iar_name>               <!--App-->
+  <iar_description>
+ This application demonstrates the Advanced Encryption Standard Bridge (AESB) 
+ peripheral integrated in some SAMA5 microcontrollers. 
+ The AESB supports three confidentiality modes of operation for symmetrical key 
+ block cipher algorithms (ECB, CBC and CTR), as specified in the NIST Special 
+ Publication 800-38A Recommendation.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

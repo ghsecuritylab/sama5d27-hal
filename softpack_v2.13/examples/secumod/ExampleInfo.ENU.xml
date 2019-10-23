@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>secumod example </iar_name>               <!--App-->
+  <iar_description>
+
+ This basic example shows how to use the \ref secumod_module "Security Module (SECUMOD)"
+ available on the Atmel SAMA5D2 and SAMA5D4 microcontrollers. The SECUMOD
+ provides features to protect against attacks on the chip, recording and
+ timestamping of tamper events.
+
+  </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>
