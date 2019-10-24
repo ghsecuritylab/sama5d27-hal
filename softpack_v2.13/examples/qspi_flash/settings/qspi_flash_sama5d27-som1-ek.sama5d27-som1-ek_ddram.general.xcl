@@ -2,15 +2,15 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armjlink2.dll" 
 
-"H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\build\sama5d27-som1-ek\ddram\Exe\qspi_flash.out" 
+"H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\build\sama5d27-som1-ek\ddram\Exe\qspi_flash.out" 
 
 --plugin="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\bin\armbat.dll" 
 
 --device_macro="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\arm\config\debugger\Microchip\SAMA5D2.dmac" 
 
---macro="H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\..\..\target\sama5d2\toolchain\iar\ddram.mac" 
+--macro="H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\..\..\target\sama5d2\toolchain\iar\ddram.mac" 
 
---flash_loader="H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\..\..\flash_loaders\sama5d2-generic\sama5d27-som1-ek.board" 
+--flash_loader="H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\..\..\flash_loaders\sama5d2-generic\sama5d27-som1-ek.board" 
 
 
 

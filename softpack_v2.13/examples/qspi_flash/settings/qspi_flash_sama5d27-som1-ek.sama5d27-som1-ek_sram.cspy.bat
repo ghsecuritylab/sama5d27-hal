@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.general.xcl" --backend -f "H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.general.xcl" --backend -f "H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.general.xcl" "--debug_file=%~1" --backend -f "H:\IAR\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\common\bin\cspybat" -f "H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.general.xcl" "--debug_file=%~1" --backend -f "H:\git-hub\sama5d27-hal\softpack_v2.13\examples\qspi_flash\settings\qspi_flash_sama5d27-som1-ek.sama5d27-som1-ek_sram.driver.xcl" 
 
 @echo off 
 :end
