@@ -70,31 +70,35 @@
 /** CONSOLE pin definition: use UART1 IOSET1 */
 /* Note that these definitions could be omitted if the console is configured in
  * the active boot config word. */
-#define BOARD_CONSOLE_ADDR     UART1
+#define BOARD_CONSOLE_ADDR     UART0
 #define BOARD_CONSOLE_BAUDRATE 115200
-#define BOARD_CONSOLE_TX_PIN   PIN_UART1_TXD_IOS1
-#define BOARD_CONSOLE_RX_PIN   PIN_UART1_RXD_IOS1
+#define BOARD_CONSOLE_TX_PIN   PIN_UART0_TXD_IOS1
+#define BOARD_CONSOLE_RX_PIN   PIN_UART0_RXD_IOS1
 
 /* =================== PIN LED definition ====================== */
 
 /* RGB LED index */
-#define LED_RED   0
-#define LED_GREEN 1
-#define LED_BLUE  2
+#define LED_GREEN   0
+#define IMU_SYNC 1
+#define IMU_RST  2
+#define IMU_EN   3
 
-/** LED #0 pin definition (Red). */
-#define PIN_LED_0 { PIO_GROUP_A, PIO_PA10, PIO_OUTPUT_0, PIO_DEFAULT }
+/** LED #0 pin definition (Green). */
+#define PIN_LED_0 { PIO_GROUP_B, PIO_PB31, PIO_OUTPUT_0, PIO_DEFAULT }
 
-/** LED #1 pin definition (Green). */
-#define PIN_LED_1 { PIO_GROUP_B, PIO_PB1, PIO_OUTPUT_0, PIO_DEFAULT }
+/** LED #1 pin definition (IMU_SYNC). */
+#define PIN_LED_1 { PIO_GROUP_A, PIO_PA18, PIO_OUTPUT_0, PIO_DEFAULT }
 
-/** LED #2 pin definition (Blue). */
-#define PIN_LED_2 { PIO_GROUP_A, PIO_PA31, PIO_OUTPUT_0, PIO_DEFAULT }
+/** LED #2 pin definition (IMU_RST). */
+#define PIN_LED_2 { PIO_GROUP_A, PIO_PA19, PIO_OUTPUT_0, PIO_DEFAULT }
+
+/** LED #2 pin definition (IMU_EN). */
+#define PIN_LED_3 { PIO_GROUP_A, PIO_PA20, PIO_OUTPUT_0, PIO_DEFAULT }
 
 /** List of all LEDs definitions. */
-#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2 }
+#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2, PIN_LED_3 }
 
-#define NUM_LEDS  3
+#define NUM_LEDS  4
 
 /* =================== PWM LED definition ====================== */
 
@@ -161,6 +165,10 @@
 	PIN_FLEXCOM4_SPI_NPCS0_IOS1, PIN_FLEXCOM4_SPI_NPCS1_IOS1 }
 #define BOARD_SPI_BUS0       FLEXSPI4
 #define BOARD_SPI_BUS0_MODE  BUS_TRANSFER_MODE_POLLING
+
+#define IMU_SPI_BUS0_PINS  PINS_SPI0_NPCS0_IOS1
+#define IMU_SPI_BUS0       SPI0
+#define IMU_SPI_BUS0_MODE  BUS_TRANSFER_MODE_POLLING
 
 /* ================== PIN USB definition ======================= */
 

@@ -87,6 +87,18 @@ static const struct spi_flash_cfg _spi_flash_cfg[] = {
 
 void board_cfg_spi_bus(void)
 {
+#ifdef IMU_SPI_BUS0
+        const struct _pin pins_spi_imu[] = IMU_SPI_BUS0_PINS;
+	const struct _bus_iface iface_imu = {
+		.type = BUS_TYPE_SPI,
+		.spi = {
+			.hw = IMU_SPI_BUS0,
+		},
+		.transfer_mode = BOARD_SPI_BUS0_MODE,
+	};
+	pio_configure(pins_spi_imu, ARRAY_SIZE(pins_spi_imu));
+	bus_configure(BUS(BUS_TYPE_SPI, 0), &iface_imu);
+#endif
 #ifdef BOARD_SPI_BUS0
 	const struct _pin pins_spi_bus0[] = BOARD_SPI_BUS0_PINS;
 	const struct _bus_iface iface_bus0 = {
