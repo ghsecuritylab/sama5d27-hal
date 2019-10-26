@@ -299,15 +299,21 @@ static void _spi_transfer(void)
 int main(void)
 {
 	uint8_t key;
+        
+        board_cfg_led();
+        led_set(LED_GREEN);
 
 	/* Output example information */
 	console_example_info("SPI Slave Example");
-
+        
+        board_cfg_spi_bus();
+        
+        
 	/* Configure SPI slave */
-	pio_configure(pins_spi_slave, ARRAY_SIZE(pins_spi_slave));
+	/*pio_configure(pins_spi_slave, ARRAY_SIZE(pins_spi_slave));
 	spid_configure(&spi_slave_dev);
 	spid_configure_master(&spi_slave_dev, false);
-	spid_configure_cs(&spi_slave_dev, 0, 0, 0, 0, SPID_MODE_0);
+	spid_configure_cs(&spi_slave_dev, 0, 0, 0, 0, SPID_MODE_0);*/
 
 	bus_configure_slave(spi_master_dev.bus, &spi_master_dev);
 

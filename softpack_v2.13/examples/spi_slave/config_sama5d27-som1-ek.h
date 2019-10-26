@@ -4,11 +4,11 @@
 /** define the SPI master bus */
 #define SPI_MASTER_BUS BUS(BUS_TYPE_SPI, 0)
 /** define the CS signal of SPI master */
-#define SPI_MASTER_CS 1
+#define SPI_MASTER_CS 0
 /** define the bitrate of SPI master */
 #define SPI_MASTER_BITRATE 1000
 /** define the pins of SPI master */
-#define SPI_MASTER_PINS PINS_FLEXCOM4_SPI_NPCS1_IOS1
+#define SPI_MASTER_PINS PINS_SPI0_NPCS0_IOS1
 
 /** define the address of SPI slave */
 #define SPI_SLAVE_ADDR FLEXSPI3
