@@ -154,7 +154,7 @@ static void _adc_trigger_capture(void)
 	if (timer_timeout_reached(&adc_timeout)) {
 		state = STATE_CAPTURING;
 		adc_start_conversion();
-		led_toggle(LED_RED);
+		//led_toggle(LED_RED);
 	}
 }
 

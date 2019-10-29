@@ -108,7 +108,7 @@ int main(void)
          * 1. Test Led
          **********************************/
         board_cfg_led();
-        led_set(LED_BLUE);
+        //led_set(LED_BLUE);
 
         /***********************************
          * 3. Test ADC

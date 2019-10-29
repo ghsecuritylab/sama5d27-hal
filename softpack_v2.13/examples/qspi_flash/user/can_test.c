@@ -403,17 +403,8 @@ static void display_menu(void)
 int can_test(void)
 {
 	uint8_t user_key;
-
-	/* Output example information */
-	console_example_info("Controller Area Network (CAN/MCAN) Example");
-
-	if ((0 == can_bus_loopback(0, true)) && (0 == can_bus_loopback(1, true)))
-		loop_back = true;
-	else
-		loop_back = false;
-	can_bus_mode(0, mode);
-	can_bus_mode(1, mode);
-
+	/* Output example information */  
+	console_example_info("Controller Area Network (CAN/MCAN) Example");         
 	/* Display menu */
 	display_menu();
 
@@ -422,87 +413,60 @@ int can_test(void)
 			continue;
 		user_key = tolower(console_get_char());
 		switch (user_key) {
-                case 'c':
-		case 'f':
-		case 's':
-			mode = user_key == 'f' ? CAN_MODE_CAN_FD_CONST_RATE :
-					(user_key == 's' ? CAN_MODE_CAN_FD_DUAL_RATE :
-						CAN_MODE_CAN);
-			if (0 == can_bus_mode(0, mode))
-				can_bus_mode(1, mode);
-			else {
-				mode = CAN_MODE_CAN;
-				trace_warning("Only support standard CAN operation!\r\n");
-			}
-			display_menu();
-			break;
-		case 'l':
-			loop_back = loop_back ? false : true;
-			if (0 == can_bus_loopback(0, loop_back))
-				can_bus_loopback(1, loop_back);
-			else {
-				loop_back = false;
-				trace_warning("Loop-back mode not supported!\r\n");
-			}
-			display_menu();
-			break;
-		case 'h':
-			display_menu();
-			break;
-                case 'p':
-			if (can_bus_activate(0, CAN_TO) < 0) {
-				trace_error("Failed to enable CAN/MCAN.\r\n");
-				break;
-			}
-			if (can_bus_activate(1, CAN_TO) < 0) {
-				trace_error("Failed to enable CAN/MCAN.\r\n");
-				break;
-			}
-			/* Demonstrate ID filtering */
-			id[2] = 0x444 + ((id[2] - 0x444 + 1) & 0x007);
-			/* Also, transmit each time different data. */
-			msg_2[0]++;
-			send_message(0);
-			send_message(1);
-			break;
-		case 'r': {
-			struct _buffer buf_rx = {
-					.data = rx_buffers[_RX_BUFF_SIMPLE],
-					.size = sizeof(rx_buffers[_RX_BUFF_SIMPLE]),
-					.attr = CAND_BUF_ATTR_STANDARD | CAND_BUF_ATTR_RX,
-				};
-			if (can_bus_activate(1, CAN_TO) < 0) {
-				trace_error("Failed to enable CAN/MCAN.\r\n");
-				break;
-			}
-			can_bus_transfer(1, 0x222, 0x7FF, &buf_rx, NULL);
-			if (!can_bus_wait_transfer_done(&buf_rx, 10 * CAN_TO)) {
-				trace_warning("RX failed!\r\n");
-			} else {
-				trace_info("CAN1 RX, len %u:", (unsigned)buf_rx.size);
-				print_buffer(buf_rx.size, buf_rx.data);
-			}
-			break;
-		}
-		case 't': {
-			struct _buffer buf_tx = {
+		case 'z': {
+                        loop_back = true;
+                        can_bus_loopback(0, loop_back);
+                        can_bus_loopback(1, loop_back);
+                        can_bus_mode(0, mode);
+                        can_bus_mode(1, mode);
+                        sleep(2);
+                        struct _buffer buf_tx = {
 					.data = (uint8_t*)msg_2,
 					.size = 8,
 					.attr = CAND_BUF_ATTR_STANDARD | CAND_BUF_ATTR_TX,
 				};
-			if (can_bus_activate(1, CAN_TO) < 0) {
-				trace_error("Failed to enable CAN/MCAN.\n\r");
-				break;
-			}
-			trace_info("CAN1 TX, ID 0x222, len %u:", (unsigned)buf_tx.size);
-			print_buffer(buf_tx.size, buf_tx.data);
 
-			can_bus_transfer(1, 0x222, 0, &buf_tx, NULL);
-			if (!can_bus_wait_transfer_done(&buf_tx, CAN_TO))
-				trace_error("TX failed!\r\n");
-			else
-				trace_info("TX OK!\r\n");
-			break;
+                        struct _buffer buf_rx = {
+					.data = rx_buffers[_RX_BUFF_SIMPLE],
+					.size = sizeof(rx_buffers[_RX_BUFF_SIMPLE]),
+					.attr = CAND_BUF_ATTR_STANDARD | CAND_BUF_ATTR_RX,
+				};
+                        
+                        can_bus_transfer(1, 0x222, 0x7FF, &buf_rx, NULL);//recive
+			print_buffer(buf_tx.size, buf_tx.data);
+			can_bus_transfer(1, 0x222, 0, &buf_tx, NULL);//send
+                        print_buffer(buf_rx.size, buf_rx.data);
+                        break;
+		}
+                case 't': {
+                    loop_back = false;
+                    can_bus_loopback(0, loop_back);
+                    can_bus_loopback(1, loop_back);
+                    can_bus_mode(0, mode);
+                    can_bus_mode(1, mode);      
+                  struct _buffer buf_tx = {
+					.data = (uint8_t*)msg_2,
+					.size = 8,
+					.attr = CAND_BUF_ATTR_STANDARD | CAND_BUF_ATTR_TX,
+				};
+                  print_buffer(buf_tx.size, buf_tx.data);
+                  can_bus_transfer(1, 0x222, 0, &buf_tx, NULL);//send
+                  break;
+		}
+                case 'r': {
+                    loop_back = false;
+                    can_bus_loopback(0, loop_back);
+                    can_bus_loopback(1, loop_back);
+                    can_bus_mode(0, mode);
+                    can_bus_mode(1, mode);      
+                    struct _buffer buf_rx = {
+					.data = rx_buffers[_RX_BUFF_SIMPLE],
+					.size = sizeof(rx_buffers[_RX_BUFF_SIMPLE]),
+					.attr = CAND_BUF_ATTR_STANDARD | CAND_BUF_ATTR_RX,
+				};
+                    can_bus_transfer(1, 0x222, 0x7FF, &buf_rx, NULL);//recive
+                    print_buffer(buf_rx.size, buf_rx.data);
+                    break;
 		}
 		}
 	}

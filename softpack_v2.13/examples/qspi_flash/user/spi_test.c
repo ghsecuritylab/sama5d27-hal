@@ -110,7 +110,7 @@ int qspi_test(void)
 	rc = spi_nor_read(flash, start, buf, sizeof(buf));
 	printf("read returns %d\r\n", rc);
 	_display_buf(buf, sizeof(buf));
-        led_set(LED_RED);
+        //led_set(LED_RED);
         
         return 1;
 }
