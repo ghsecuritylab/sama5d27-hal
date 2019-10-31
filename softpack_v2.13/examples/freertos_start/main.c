@@ -174,8 +174,7 @@ int main(void)
 		led_status[i] = led_status[i-1];
 	}
 
-	xTaskCreate(vLedTask, LedTaskName, configMINIMAL_STACK_SIZE, NULL, 
-										mainLED_TASK_PRIORITY, NULL);
+	xTaskCreate(vLedTask, LedTaskName, configMINIMAL_STACK_SIZE, NULL, mainLED_TASK_PRIORITY, NULL);
 
 	/* Start the scheduler. */
 	vTaskStartScheduler();
