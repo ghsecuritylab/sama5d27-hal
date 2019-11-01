@@ -116,42 +116,24 @@
 #include <stdio.h>
 
 /* Priorities at which the tasks are created. */
-#define mainLED_TASK_PRIORITY		( tskIDLE_PRIORITY + 2 )
+#define mainAPP_TASK_PRIORITY           ( tskIDLE_PRIORITY + 1 )   
+#define mainLED1_TASK_PRIORITY		( tskIDLE_PRIORITY + 2 )
+#define mainLED2_TASK_PRIORITY		( tskIDLE_PRIORITY + 3 )
 
 /*----------------------------------------------------------------------------
  *        Local variables
  *----------------------------------------------------------------------------*/
-volatile bool led_status[NUM_LEDS];
-
-static const char *LedTaskName = "LedCtrl";
+/*任务句柄*/
+static TaskHandle_t AppTaskCreate_Handle = NULL;
+static TaskHandle_t LED1_Task_Handle = NULL;
+static TaskHandle_t LED2_Task_Handle = NULL;
 
 /*----------------------------------------------------------------------------
  *        Local functions
  *----------------------------------------------------------------------------*/
-
-static void vLedTask(void *pvParameters);
-
-
-
-static void vLedTask(void *pvParameters)
-{
-	while (1) {
-
-		printf("LED task running\n\r");
-
-		/* Wait for LED to be active */
-		while (!led_status[0]);
-
-		/* Toggle LED state if active */
-		if (led_status[0]) {
-			led_toggle(0);
-			printf("0 ");
-		}
-		/* Simply toggle the LED every 500ms, blocking between each toggle. */
-		vTaskDelay(500/portTICK_RATE_MS);
-
-	}
-}
+static void AppTaskCreate(void);                /*用于创建任务*/
+static void LED1_Task(void *pvParameters);      /*LED1_Task任务实现*/
+static void LED2_Task(void *pvParameters);      /*LED2_Task任务实现*/
 
 
 /*----------------------------------------------------------------------------
@@ -166,18 +148,22 @@ static void vLedTask(void *pvParameters)
 int main(void)
 {
 	int i = 0;
-
+        BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+        
 	console_example_info("FreeRTOS Start Example");
 
-	led_status[0] = true;
-	for (i = 1; i < NUM_LEDS; ++i) {
-		led_status[i] = led_status[i-1];
-	}
+	xReturn = xTaskCreate((TaskFunction_t )AppTaskCreate,             /* 任务入口函数 */
+                              (const char*    )"AppTaskCreate",           /* 任务名称 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,  /* 任务栈大小 */
+                              (void*          )NULL,                      /* 任务入口函数参数 */
+                              (UBaseType_t    )mainAPP_TASK_PRIORITY,     /* 任务的优先级 */
+                              (TaskHandle_t*  )&AppTaskCreate_Handle);     /* 任务控制块指针 */
 
-	xTaskCreate(vLedTask, LedTaskName, configMINIMAL_STACK_SIZE, NULL, mainLED_TASK_PRIORITY, NULL);
-
-	/* Start the scheduler. */
-	vTaskStartScheduler();
+	/* 启动任务调度 */           
+        if(pdPASS == xReturn)
+                vTaskStartScheduler();   /* 启动任务，开启调度 */
+        else
+                 return -1;  
 
 	/* If all is well, the scheduler will now be running, and the following
 	line will never be reached.  If the following line does execute, then
@@ -190,4 +176,76 @@ int main(void)
 
 	while(1);
 
+}
+
+
+/***********************************************************************
+  * @ 函数名  ： AppTaskCreate
+  * @ 功能说明： 为了方便管理，所有的任务创建函数都放在这个函数里面
+  * @ 参数    ： 无  
+  * @ 返回值  ： 无
+  **********************************************************************/
+static void AppTaskCreate(void)
+{
+        BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+  
+        taskENTER_CRITICAL();           //进入临界区
+  
+        /* 创建LED1_Task任务 */
+        xReturn = xTaskCreate((TaskFunction_t )LED1_Task,                       /* 任务入口函数 */
+                              (const char*    )"LED1_Task",                     /* 任务名字 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,        /* 任务栈大小 */
+                              (void*          )NULL,	                        /* 任务入口函数参数 */
+                              (UBaseType_t    )mainLED1_TASK_PRIORITY,	        /* 任务的优先级 */
+                              (TaskHandle_t*  )&LED1_Task_Handle);              /* 任务控制块指针 */
+        if(pdPASS == xReturn)
+                printf("创建LED1_Task任务成功!\r\n");
+  
+	/* 创建LED2_Task任务 */
+        xReturn = xTaskCreate((TaskFunction_t )LED2_Task,                       /* 任务入口函数 */
+                              (const char*    )"LED2_Task",                     /* 任务名字 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,        /* 任务栈大小 */
+                              (void*          )NULL,	                        /* 任务入口函数参数 */
+                              (UBaseType_t    )mainLED2_TASK_PRIORITY,	        /* 任务的优先级 */
+                              (TaskHandle_t*  )&LED2_Task_Handle);              /* 任务控制块指针 */
+        if(pdPASS == xReturn)
+                 printf("创建LED2_Task任务成功!\r\n");
+  
+        vTaskDelete(AppTaskCreate_Handle); //删除AppTaskCreate任务
+  
+        taskEXIT_CRITICAL();            //退出临界区
+}
+
+/**********************************************************************
+  * @ 函数名  ： LED_Task
+  * @ 功能说明： LED_Task任务主体
+  * @ 参数    ：   
+  * @ 返回值  ： 无
+  ********************************************************************/
+static void LED1_Task(void* parameter)
+{	
+    while (1)
+    {
+        led_toggle(LED_GREEN);
+        
+        /* Simply toggle the LED every 500ms, blocking between each toggle. */
+        vTaskDelay(500/portTICK_RATE_MS);
+    }
+}
+
+/**********************************************************************
+  * @ 函数名  ： LED_Task
+  * @ 功能说明： LED_Task任务主体
+  * @ 参数    ：   
+  * @ 返回值  ： 无
+  ********************************************************************/
+static void LED2_Task(void* parameter)
+{	
+    while (1)
+    {
+        led_toggle(LED_BLUE);
+        
+        /* Simply toggle the LED every 500ms, blocking between each toggle. */
+        vTaskDelay(500/portTICK_RATE_MS);
+    }
 }
