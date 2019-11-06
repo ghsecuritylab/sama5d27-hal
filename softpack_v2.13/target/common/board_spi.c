@@ -98,6 +98,8 @@ void board_cfg_spi_bus(void)
 	};
 	pio_configure(pins_spi_bus0, ARRAY_SIZE(pins_spi_bus0));
 	bus_configure(BUS(BUS_TYPE_SPI, 0), &iface_bus0);
+        printf("### board_cfg_spi_bus\r\n");
+        //led_clear(IMU_CS);
 #endif
 #ifdef BOARD_SPI_BUS1
 	const struct _pin pins_spi_bus1[] = BOARD_SPI_BUS1_PINS;

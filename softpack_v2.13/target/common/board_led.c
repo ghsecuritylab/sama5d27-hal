@@ -51,5 +51,6 @@ void board_cfg_led(void)
 {
 #ifdef PINS_LEDS
 	led_configure(pins_leds, ARRAY_SIZE(pins_leds));
+        printf("### board_cfg_led\r\n");
 #endif
 }

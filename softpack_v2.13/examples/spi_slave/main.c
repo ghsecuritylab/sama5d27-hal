@@ -153,12 +153,17 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+   
+#include "imu_hal.h"
+#include "imu381.h"
+#include "adis16465.h"
 
 /*----------------------------------------------------------------------------
  *        Local definitions
  *----------------------------------------------------------------------------*/
 
-#define DMA_TRANS_SIZE 256
+/*#define DMA_TRANS_SIZE 256*/
+#define DMA_TRANS_SIZE 2
 
 #if defined(CONFIG_BOARD_SAMA5D2_XPLAINED)
 	#include "config_sama5d2-xplained.h"
@@ -208,7 +213,7 @@ static const struct _bus_dev_cfg spi_master_dev = {
 			.bs = 0,
 			.bct = 0,
 		},
-		.spi_mode = SPID_MODE_0,
+		.spi_mode = SPID_MODE_3,
 	},
 };
 
@@ -218,6 +223,18 @@ static struct _spi_desc spi_slave_dev = {
 	.transfer_mode = BUS_TRANSFER_MODE_DMA,
 };
 
+struct _buffer master_buf = {
+		.data = spi_buffer_master_tx,
+		.size = DMA_TRANS_SIZE,
+		.attr = BUS_BUF_ATTR_TX | BUS_SPI_BUF_ATTR_RELEASE_CS,
+	};
+
+
+struct _buffer slave_buf = {
+		.data = spi_buffer_slave_rx,
+		.size = DMA_TRANS_SIZE,
+		.attr = BUS_BUF_ATTR_RX,
+	};
 /*----------------------------------------------------------------------------
  *        Local functions
  *----------------------------------------------------------------------------*/
@@ -239,6 +256,53 @@ static int _spi_slave_transfer_callback(void* arg, void* arg2)
 	return 0;
 }
 
+void imu_init_reset(void)
+{
+	led_set(IMU_RST);
+        msleep(50);
+        led_clear(IMU_RST);
+        msleep(1000);
+}
+
+static int imu_reg_read_16bit_data(uint16_t addr,uint16_t *data)
+{
+        memset(spi_buffer_slave_rx, 0, DMA_TRANS_SIZE);
+        memset(spi_buffer_master_tx, 0, DMA_TRANS_SIZE);
+        
+        spi_buffer_master_tx[0] = addr>>8;
+        spi_buffer_master_tx[1] = addr;
+        
+        printf("...spi_buffer_master_tx[0] = 0x%02x\r\n",spi_buffer_master_tx[0]);
+        printf("...spi_buffer_master_tx[1] = 0x%02x\r\n",spi_buffer_master_tx[1]);
+        
+        bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &master_buf, 1, NULL);
+        
+        usleep(10);
+        bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &slave_buf, 1, NULL);
+        //*data = (uint16_t)(spi_buffer_imu_rx[0]<<8|spi_buffer_imu_rx[1]);
+        
+        printf("###spi_buffer_slave_rx[0] = 0x%02x\r\n",spi_buffer_slave_rx[0]);
+        printf("###spi_buffer_slave_rx[1] = 0x%02x\r\n",spi_buffer_slave_rx[1]);
+}
+
+static int imu_reg_read_true_data(uint16_t addr,uint16_t *data)
+{
+	if(!data)
+		return -1;
+	imu_reg_read_16bit_data(addr, data);
+	usleep(20);
+	imu_reg_read_16bit_data(addr, data);
+	return 0;
+}
+
+static int imu_type_check(void)
+{
+	uint16_t imu_reg_data = 0;
+	
+	msleep(50);	// Wait 50 ms until the imu is accessible via SPI
+
+	imu_reg_read_true_data(ADIS16465_REG_PROD_ID, &imu_reg_data);
+}
 /**
  * \brief Start SPI slave transfer and SPI master receive.
  */
@@ -246,45 +310,52 @@ static void _spi_transfer(void)
 {
 	int err;
 	int i;
-	struct _buffer master_buf = {
-		.data = spi_buffer_master_tx,
-		.size = DMA_TRANS_SIZE,
-		.attr = BUS_BUF_ATTR_TX | BUS_SPI_BUF_ATTR_RELEASE_CS,
-	};
-	struct _buffer slave_buf = {
-		.data = spi_buffer_slave_rx,
-		.size = DMA_TRANS_SIZE,
-		.attr = BUS_BUF_ATTR_RX,
-	};
+	
+	
 	struct _callback _cb = {
 		.method = _spi_slave_transfer_callback,
 		.arg = 0,
 	};
 
-	for (i = 0; i < DMA_TRANS_SIZE; i++)
-		spi_buffer_master_tx[i] = i;
-	memset(spi_buffer_slave_rx, 0, DMA_TRANS_SIZE);
+        imu_init_reset();
+        
+        bus_start_transaction(spi_master_dev.bus);
+        
+        while(1)
+        {
+                imu_type_check();
+        }
+        bus_stop_transaction(spi_master_dev.bus);
+        
+	/*for (i = 0; i < DMA_TRANS_SIZE; i++)
+		spi_buffer_master_tx[i] = i;*/
+	/*memset(spi_buffer_slave_rx, 0, DMA_TRANS_SIZE);
+        memset(spi_buffer_master_tx, 0, DMA_TRANS_SIZE);
+        spi_buffer_master_tx[0] = 0x72;
+        spi_buffer_master_tx[1] = 0x00;
 
-	bus_start_transaction(spi_master_dev.bus);
+	bus_start_transaction(spi_master_dev.bus);*/
 
-	printf("Slave receiving...\r\n");
+	/*printf("Slave receiving...\r\n");
 	err = spid_transfer(&spi_slave_dev, &slave_buf, 1, &_cb);
 	if (err < 0) {
 		trace_error("SPI: SLAVE: transfer failed.\r\n");
 		return;
+	}*/
+        /*while(1)
+	{
+          printf("Master sending...\r\n");
+          bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &master_buf, 1, NULL);
 	}
+        bus_stop_transaction(spi_master_dev.bus);*/
+	//spid_wait_transfer(&spi_slave_dev);
 
-	printf("Master sending...\r\n");
-	bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &master_buf, 1, NULL);
-	bus_stop_transaction(spi_master_dev.bus);
-	spid_wait_transfer(&spi_slave_dev);
-
-	if (memcmp(spi_buffer_master_tx, spi_buffer_slave_rx, DMA_TRANS_SIZE)) {
+	/*if (memcmp(spi_buffer_master_tx, spi_buffer_slave_rx, DMA_TRANS_SIZE)) {
 		trace_error("SPI: received data does not match!\r\n");
 		return;
 	}
 
-	printf("Received data matched.\r\n");
+	printf("Received data matched.\r\n");*/
 }
 
 /*----------------------------------------------------------------------------
@@ -301,31 +372,45 @@ int main(void)
 	uint8_t key;
 
 	/* Output example information */
-	console_example_info("SPI Slave Example");
+	console_example_info("SPI Master IMU Example");
 
 	/* Configure SPI slave */
-	pio_configure(pins_spi_slave, ARRAY_SIZE(pins_spi_slave));
-	spid_configure(&spi_slave_dev);
-	spid_configure_master(&spi_slave_dev, false);
-	spid_configure_cs(&spi_slave_dev, 0, 0, 0, 0, SPID_MODE_0);
+	//pio_configure(pins_spi_slave, ARRAY_SIZE(pins_spi_slave));
+	//spid_configure(&spi_slave_dev);
+	//spid_configure_master(&spi_slave_dev, false);
+	//spid_configure_cs(&spi_slave_dev, 0, 0, 0, 0, SPID_MODE_0);
 
 	bus_configure_slave(spi_master_dev.bus, &spi_master_dev);
 
-	_display_menu();
-
-	while (1) {
-		key = console_get_char();
-		switch (key) {
-		case 'H':
-		case 'h':
-			_display_menu();
-			break;
-		case 'S':
-		case 's':
-			_spi_transfer();
-			break;
-		default:
-			break;
-		}
-	}
+	//_display_menu();
+        
+        led_set(LED_BLUE);
+        led_set(LED_GREEN);
+        led_set(IMU_EN);
+        
+        led_set(IMU_RST);
+        led_clear(IMU_SYNC);
+        
+        //led_set(IMU_CS);
+        //led_clear(IMU_CS);
+        //led_set(IMU_CS);
+                
+                
+        _spi_transfer();
+          
+	//while (1) {
+		//key = console_get_char();
+		//switch (key) {
+		//case 'H':
+		//case 'h':
+		//	_display_menu();
+		//	break;
+		//case 'S':
+		//case 's':
+		//_spi_transfer();
+		//	break;
+		//default:
+		//	break;
+		//}
+	//}
 }
