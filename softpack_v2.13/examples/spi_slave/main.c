@@ -274,15 +274,19 @@ static int imu_reg_read_16bit_data(uint16_t addr,uint16_t *data)
         
         printf("...spi_buffer_master_tx[0] = 0x%02x\r\n",spi_buffer_master_tx[0]);
         printf("...spi_buffer_master_tx[1] = 0x%02x\r\n",spi_buffer_master_tx[1]);
-        
+        bus_start_transaction(spi_master_dev.bus);
         bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &master_buf, 1, NULL);
         
         usleep(10);
+        
         bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &slave_buf, 1, NULL);
-        //*data = (uint16_t)(spi_buffer_imu_rx[0]<<8|spi_buffer_imu_rx[1]);
+        
         
         printf("###spi_buffer_slave_rx[0] = 0x%02x\r\n",spi_buffer_slave_rx[0]);
         printf("###spi_buffer_slave_rx[1] = 0x%02x\r\n",spi_buffer_slave_rx[1]);
+        *data = (uint16_t)(spi_buffer_slave_rx[0]<<8|spi_buffer_slave_rx[1]);
+        
+        bus_stop_transaction(spi_master_dev.bus);
 }
 
 static int imu_reg_read_true_data(uint16_t addr,uint16_t *data)
@@ -302,6 +306,25 @@ static int imu_type_check(void)
 	msleep(50);	// Wait 50 ms until the imu is accessible via SPI
 
 	imu_reg_read_true_data(ADIS16465_REG_PROD_ID, &imu_reg_data);
+        printf("### imu_reg_data = 0x%04x\r\n", imu_reg_data);
+        
+        if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
+	{
+		uint16_t rang_flag = 0;
+
+		imu_reg_read_true_data(ADIS16465_REG_RANG_MDL, &imu_reg_data);
+		rang_flag = (imu_reg_data>>2)&0x0003;
+		switch(rang_flag)   
+		{
+			case 0:
+				return IMU_TYPE_ADIS16465_1;
+			case 1:
+				return IMU_TYPE_ADIS16465_2;
+			case 3:
+				return IMU_TYPE_ADIS16465_3;
+		}
+	}
+	return -1;
 }
 /**
  * \brief Start SPI slave transfer and SPI master receive.
@@ -310,7 +333,7 @@ static void _spi_transfer(void)
 {
 	int err;
 	int i;
-	
+	int imu_type;
 	
 	struct _callback _cb = {
 		.method = _spi_slave_transfer_callback,
@@ -319,13 +342,36 @@ static void _spi_transfer(void)
 
         imu_init_reset();
         
-        bus_start_transaction(spi_master_dev.bus);
+        //bus_start_transaction(spi_master_dev.bus);
         
-        while(1)
-        {
-                imu_type_check();
-        }
-        bus_stop_transaction(spi_master_dev.bus);
+        //while(1)
+        //{
+                imu_type = imu_type_check();
+                switch(imu_type)
+                {
+                      case IMU_TYPE_IMU381ZA:
+			//s_imu_cfg = imu_cfg_imu381;
+			printf("IMU TYPE IMU381 USED\r\n");
+			break;
+                      case IMU_TYPE_ADIS16465_1:
+			//s_imu_cfg = imu_cfg_adis16465_1;
+			printf("IMU TYPE ADIS16465-2 USED\r\n");
+			break;
+                      case IMU_TYPE_ADIS16465_2:
+			//s_imu_cfg = imu_cfg_adis16465_2;
+			printf("IMU TYPE ADIS16465-2 USED\r\n");
+			break;
+                      case IMU_TYPE_ADIS16465_3:
+			//s_imu_cfg = imu_cfg_adis16465_3;
+			printf("IMU TYPE ADIS16465-2 USED\r\n");
+			break;
+                      default:
+			printf("imu type unknow\r\n");
+			break;
+                        //return -1;
+	}
+        //}
+        //bus_stop_transaction(spi_master_dev.bus);
         
 	/*for (i = 0; i < DMA_TRANS_SIZE; i++)
 		spi_buffer_master_tx[i] = i;*/
