@@ -96,7 +96,7 @@
 #include "serial/console.h"
 #include "serial/usart.h"
 #include "serial/usartd.h"
-
+#include "serial/seriald.h"
 
 #ifdef VARIANT_DDRAM
 #define CMD_BUFFER_SIZE   256*1024
@@ -118,8 +118,12 @@
 #define USART_ADDR FLEXUSART3
 #define USART_PINS PINS_FLEXCOM3_USART_IOS3
 /*PB23 PB22
-* UART3 to 4G
+* USART3 to 4G
 */
+
+/*UART3 PB11 PB12*/
+#define UART_ADDR UART3
+#define UART_PINS PINS_UART3_IOS3
 
 #elif defined(CONFIG_BOARD_SAMA5D4_XPLAINED)
 #define USART_ADDR USART4
@@ -170,6 +174,7 @@
 #endif
 
 static const struct _pin usart_pins[] = USART_PINS;
+static const struct _pin uart_pins[] = UART_PINS;
 
 CACHE_ALIGNED static uint8_t cmd_buffer[CMD_BUFFER_SIZE];
 CACHE_ALIGNED static uint8_t read_buffer[READ_BUFFER_SIZE];
@@ -186,6 +191,8 @@ static struct _usart_desc usart_desc = {
 	.transfer_mode  = USARTD_MODE_POLLING,
 	.timeout        = 500, // unit: ms
 };
+
+static struct _seriald seriald_desc;
 
 static void console_handler(uint8_t key)
 {
@@ -353,6 +360,7 @@ static void _usart_cmd_parser(const uint8_t* buffer, uint32_t len)
 	switch(*buffer) {
 	case 'w':
 		_usart_write_arg_parser(buffer+2, len-2);
+                seriald_put_string(&seriald_desc,buffer+2);
 		break;
 	case 'r':
 		_usart_read_arg_parser(buffer+2, len-2);
@@ -381,6 +389,11 @@ int main (void)
 	console_enable_rx_interrupt();
 
 	usartd_configure(0, &usart_desc);
+        
+        //serial configure(UART)
+        seriald_configure(&seriald_desc, UART_ADDR, 115200);
+        pio_configure(uart_pins, ARRAY_SIZE(uart_pins));
+                
 	_cmd_parser = _usart_cmd_parser;
 
 	/* configure spi serial flash pins */
