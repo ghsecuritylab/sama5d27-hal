@@ -195,8 +195,8 @@ static struct _usart_desc usart_desc = {
 static struct _uart_desc uart_desc = {
         .addr           = UART_ADDR,
 	.baudrate       = 115200,
-	.mode           = UART_MR_CHMODE_NORMAL,
-	.transfer_mode  = UARTD_MODE_DMA,
+	.mode           = UART_MR_CHMODE_NORMAL | UART_MR_PAR_NO,
+	.transfer_mode  = UARTD_MODE_POLLING,
 	.timeout        = 500, // unit: ms
 };
 
@@ -261,6 +261,44 @@ static void _usart_read_arg_parser(const uint8_t* buffer, uint32_t len)
 		};
 		usartd_transfer(0, &rx, &_cb);
 		usartd_wait_rx_transfer(0);
+		_len += usart_desc.rx.transferred;
+	}
+	printf("%s\r\n", read_buffer);
+}
+
+static int _uart_finish_rx_transfer_callback(void* arg, void* arg2)
+{
+	uartd_finish_rx_transfer(0);
+	return 0;
+}
+
+static void _uart_read_arg_parser(const uint8_t* buffer, uint32_t len)
+{
+	memset(read_buffer, 0x0, sizeof(read_buffer));
+	char* end_addr = NULL;
+	unsigned int size = strtoul((char*)buffer, &end_addr, 0);
+	unsigned int _len = 0;
+	if (end_addr == (char*)buffer) {
+		printf("Args: %s\r\n"
+		       "Invalid address\r\n",
+			buffer);
+		return;
+	}
+
+	memset(read_buffer, 0, ARRAY_SIZE(read_buffer));
+	cache_clean_region(read_buffer, ARRAY_SIZE(read_buffer));
+	while (_len < size) {
+		struct _buffer rx = {
+			.data = (unsigned char*)read_buffer + _len,
+			.size = size - _len,
+			.attr = UARTD_BUF_ATTR_READ,
+		};
+		struct _callback _cb = {
+			.method = _uart_finish_rx_transfer_callback,
+			.arg = 0,
+		};
+		uartd_transfer(0, &rx, &_cb);
+		uartd_wait_rx_transfer(0);
 		_len += usart_desc.rx.transferred;
 	}
 	printf("%s\r\n", read_buffer);
@@ -411,6 +449,7 @@ static void _usart_cmd_parser(const uint8_t* buffer, uint32_t len)
 		break;
 	case 'r':
 		_usart_read_arg_parser(buffer+2, len-2);
+                _uart_read_arg_parser(buffer+2, len-2);
 		break;
 	case 'm':
 		_usart_mode_arg_parser(buffer+2, len-2);

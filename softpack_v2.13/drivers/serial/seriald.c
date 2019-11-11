@@ -435,6 +435,19 @@ void uartd_finish_tx_transfer(uint8_t iface)
 	mutex_unlock(&_serial[iface]->tx.mutex);
 }
 
+void uartd_finish_rx_transfer(uint8_t iface)
+{
+	assert(iface < UART_IFACE_COUNT);
+	mutex_unlock(&_serial[iface]->rx.mutex);
+}
+
+
+void uartd_wait_rx_transfer(const uint8_t iface)
+{
+	assert(iface < UART_IFACE_COUNT);
+	while (mutex_is_locked(&_serial[iface]->rx.mutex));
+}
+
 void uartd_wait_tx_transfer(const uint8_t iface)
 {
 	assert(iface < UART_IFACE_COUNT);
@@ -529,16 +542,16 @@ uint32_t uartd_transfer(uint8_t iface, struct _buffer* buf, struct _callback* cb
 	}
 
 	tmode = desc->transfer_mode;
-
+        
 	/* If short transfer detected, use POLLING mode */
 	if (tmode != UARTD_MODE_POLLING)
 		if (buf->size < UARTD_POLLING_THRESHOLD)
 			tmode = UARTD_MODE_POLLING;
         
-        if (buf->attr & UARTD_BUF_ATTR_WRITE)
-			_uartd_dma_write(0);
+        //if (buf->attr & UARTD_BUF_ATTR_WRITE)
+	//		_uartd_dma_write(0);
         
-#if 0
+        
 	switch (tmode) {
 	case UARTD_MODE_POLLING:
 		i = 0;
@@ -610,13 +623,13 @@ uint32_t uartd_transfer(uint8_t iface, struct _buffer* buf, struct _callback* cb
 		if (buf->attr & UARTD_BUF_ATTR_WRITE)
 			_uartd_dma_write(0);
 		if (buf->attr & UARTD_BUF_ATTR_READ)
-			//_uartd_dma_read(0);
+			_uartd_dma_read(0);
 		break;
 
 	default:
 		trace_fatal("Unknown Uart mode!\r\n");
 	}
-#endif
+        
 	return UARTD_SUCCESS;
 }
 /* wwl add end */
