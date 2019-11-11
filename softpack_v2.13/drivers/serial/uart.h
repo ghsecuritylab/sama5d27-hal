@@ -49,6 +49,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+
+/* Returns 1 if the TXRDY bit (ready to transmit data) is set in the given status register value.*/
+#define UART_STATUS_TXRDY(status) ((status & UART_SR_TXRDY) == UART_SR_TXRDY)
+
+/* Returns 1 if the RXRDY bit (ready to receive data) is set in the given status register value.*/
+#define UART_STATUS_RXRDY(status) ((status & UART_SR_RXRDY) == UART_SR_RXRDY)
+
+/* Returns 1 if the TXEMPTY bit (end of transmit) is set in the given status register value.*/
+#define UART_STATUS_TXEMPTY(status) ((status & UART_SR_TXEMPTY) == UART_SR_TXEMPTY)
+
+/* Returns 1 if the TIMEOUT bit (timeout) is set in the given status register value.*/
+#define UART_STATUS_TIMEOUT(status) ((status & UART_SR_TIMEOUT) == UART_SR_TIMEOUT)
+
+
 /*------------------------------------------------------------------------------*/
 /*         Exported functions                                                   */
 /*------------------------------------------------------------------------------*/

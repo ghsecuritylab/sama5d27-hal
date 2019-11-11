@@ -192,6 +192,14 @@ static struct _usart_desc usart_desc = {
 	.timeout        = 500, // unit: ms
 };
 
+static struct _uart_desc uart_desc = {
+        .addr           = UART_ADDR,
+	.baudrate       = 115200,
+	.mode           = UART_MR_CHMODE_NORMAL,
+	.transfer_mode  = UARTD_MODE_DMA,
+	.timeout        = 500, // unit: ms
+};
+
 static struct _seriald seriald_desc;
 
 static void console_handler(uint8_t key)
@@ -264,6 +272,12 @@ static int _usart_finish_tx_transfer_callback(void* arg, void* arg2)
 	return 0;
 }
 
+static int _uart_finish_tx_transfer_callback(void* arg, void* arg2)
+{
+	uartd_finish_tx_transfer(0);
+	return 0;
+}
+
 static void _usart_write_arg_parser(const uint8_t* buffer, uint32_t len)
 {
 	struct _buffer tx = {
@@ -277,6 +291,21 @@ static void _usart_write_arg_parser(const uint8_t* buffer, uint32_t len)
 	};
 	usartd_transfer(0, &tx, &_cb);
 	usartd_wait_tx_transfer(0);
+}
+
+static void _uart_write_arg_parser(const uint8_t* buffer, uint32_t len)
+{
+	struct _buffer tx = {
+		.data = (unsigned char*)buffer,
+		.size = len,
+		.attr = UARTD_BUF_ATTR_WRITE,
+	};
+	struct _callback _cb = {
+		.method = _uart_finish_tx_transfer_callback,
+		.arg = 0,
+	};
+	uartd_transfer(0, &tx, &_cb);
+	uartd_wait_tx_transfer(0);
 }
 
 static void print_menu(void)
@@ -293,7 +322,21 @@ static void print_menu(void)
 		printf("DMA\r\n");
 		break;
 	}
-	printf("Usart example mini-console:\r\n\r\n"
+        
+        printf("\r\nUART transfer mode: ");
+        switch (uart_desc.transfer_mode) {
+	case UARTD_MODE_POLLING:
+		printf("POLLING\r\n");
+		break;
+	case UARTD_MODE_ASYNC:
+		printf("ASYNC\r\n");
+		break;
+	case UARTD_MODE_DMA:
+		printf("DMA\r\n");
+		break;
+	}
+        
+	printf("\r\nUsart example mini-console:\r\n\r\n"
 	       "|===========        Commands        ====================|\r\n"
 	       "| r size                                                |\r\n"
 	       "|      Wait to recieve 'size' characters from usart and |\r\n"
@@ -334,14 +377,17 @@ static void _usart_mode_arg_parser(const uint8_t* buffer, uint32_t len)
 {
 	if (!strncmp((char*)buffer, "polling", 7)) {
 		usart_desc.transfer_mode = USARTD_MODE_POLLING;
+                uart_desc.transfer_mode = UARTD_MODE_POLLING;
 		printf("Use POLLING mode\r\n");
 	}
 	else if (!strncmp((char*)buffer, "async", 5)) {
 		usart_desc.transfer_mode = USARTD_MODE_ASYNC;
+                uart_desc.transfer_mode = UARTD_MODE_ASYNC;
 		printf("Use ASYNC mode\r\n");
 	}
 	else if (!strncmp((char*)buffer, "dma", 3)) {
 		usart_desc.transfer_mode = USARTD_MODE_DMA;
+                uart_desc.transfer_mode = UARTD_MODE_DMA;
 		printf("Use DMA mode\r\n");
 	}
 }
@@ -360,7 +406,8 @@ static void _usart_cmd_parser(const uint8_t* buffer, uint32_t len)
 	switch(*buffer) {
 	case 'w':
 		_usart_write_arg_parser(buffer+2, len-2);
-                seriald_put_string(&seriald_desc,buffer+2);
+                //seriald_put_string(&seriald_desc,buffer+2);
+                _uart_write_arg_parser(buffer+2, len-2);
 		break;
 	case 'r':
 		_usart_read_arg_parser(buffer+2, len-2);
@@ -382,7 +429,7 @@ static void _usart_cmd_parser(const uint8_t* buffer, uint32_t len)
 int main (void)
 {
 	/* Output example information */
-	console_example_info("USART Example");
+	console_example_info("USART & UART Example");
 
 	/* Configure console interrupts */
 	console_set_rx_handler(console_handler);
@@ -390,8 +437,9 @@ int main (void)
 
 	usartd_configure(0, &usart_desc);
         
-        //serial configure(UART)
-        seriald_configure(&seriald_desc, UART_ADDR, 115200);
+        /* serial configure(UART) */
+        //seriald_configure(&seriald_desc, UART_ADDR, 115200);
+        uartd_configure(0, &uart_desc);
         pio_configure(uart_pins, ARRAY_SIZE(uart_pins));
                 
 	_cmd_parser = _usart_cmd_parser;

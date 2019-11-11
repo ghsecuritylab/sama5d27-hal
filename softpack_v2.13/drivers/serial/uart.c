@@ -167,3 +167,20 @@ uint32_t uart_get_masked_status(Uart *uart)
 	status &= uart->UART_IMR;
 	return status;
 }
+
+/*
+* wwl add uart
+*/
+void uart_set_rx_timeout(Uart *uart, uint32_t baudrate, uint32_t timeout)
+{
+	uint32_t to = ((timeout * 1000000) / ((1000000000 / baudrate) + 1));
+	if (to > UART_RTOR_TO_Msk)
+		to = UART_RTOR_TO_Msk;
+	uart->UART_RTOR = UART_RTOR_TO(to);
+}
+
+void uart_restart_rx_timeout(Uart *uart)
+{
+	uart->UART_CR = UART_CR_RETTO;
+}
+/* wwl add end */

@@ -287,6 +287,11 @@ struct _console_cfg;
 #define USART_IFACE_COUNT (5)
 #endif
 
+/** UART Interface max */
+#ifndef UART_IFACE_COUNT
+#define UART_IFACE_COUNT (5)
+#endif
+
 /** GMAC Interface max */
 #ifndef GMAC_IFACE_COUNT
 #define GMAC_IFACE_COUNT (1)

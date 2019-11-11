@@ -37,6 +37,7 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "dma/dma.h"
 
 /*----------------------------------------------------------------------------
  *        Global Types
@@ -55,6 +56,63 @@ struct _seriald {
 	seriald_rx_handler_t rx_handler; /* rx callback */
 	const struct _seriald_ops* ops; /* low-level operations */
 };
+
+/*
+* wwl add
+* uart struction
+*/
+struct _uart_desc
+{
+	Uart*  addr;
+	uint32_t mode;
+	uint32_t baudrate;
+	uint8_t transfer_mode;
+	uint32_t timeout; // ms
+
+	/* implicit internal padding is mandatory here */
+	struct {
+		mutex_t mutex;
+
+		struct _buffer buffer;
+		uint16_t transferred;
+		bool has_timeout;
+
+		struct _callback callback;
+	} rx, tx;
+
+	struct {
+		struct {
+			struct _dma_channel *channel;
+			struct _dma_cfg cfg_dma;
+			struct _dma_transfer_cfg cfg;
+		} rx;
+		struct {
+			struct _dma_channel *channel;
+			struct _dma_cfg cfg_dma;
+		} tx;
+	} dma;
+};
+
+enum _uartd_trans_mode
+{
+	UARTD_MODE_POLLING,
+	UARTD_MODE_ASYNC,
+	UARTD_MODE_DMA,
+	UARTD_MODE_FIFO,
+};
+
+enum _uartd_buf_attr {
+	UARTD_BUF_ATTR_WRITE = 0x01,
+	UARTD_BUF_ATTR_READ  = 0x02,
+};
+
+#define UARTD_SUCCESS         (0)
+#define UARTD_INVALID_ID      (1)
+#define UARTD_INVALID_BITRATE (2)
+#define UARTD_ERROR_LOCK      (3)
+#define UARTD_ERROR_DUPLEX    (4)
+#define UARTD_ERROR_TIMEOUT   (5)
+/* wwl add end */
 
 /* ----------------------------------------------------------------------------
  *         Global function
