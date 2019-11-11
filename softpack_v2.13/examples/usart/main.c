@@ -299,7 +299,7 @@ static void _uart_read_arg_parser(const uint8_t* buffer, uint32_t len)
 		};
 		uartd_transfer(0, &rx, &_cb);
 		uartd_wait_rx_transfer(0);
-		_len += usart_desc.rx.transferred;
+		_len += uart_desc.rx.transferred;
 	}
 	printf("%s\r\n", read_buffer);
 }
