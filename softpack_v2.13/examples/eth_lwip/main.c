@@ -128,10 +128,10 @@
 static uint8_t _mac_addr[6];
 
 /* The IP address used for demo (ping ...) */
-static uint8_t _ip_addr[4] = {192, 168, 1, 3};
+static uint8_t _ip_addr[4] = {192, 168, 32, 32};
 
 /* Set the default router's IP address. */
-static const uint8_t _gw_ip_addr[4] = {192, 168, 1, 2};
+static const uint8_t _gw_ip_addr[4] = {192, 168, 32, 69};
 
 /* The NetMask address */
 static const uint8_t _netmask[4] = {255, 255, 255, 0};
@@ -245,7 +245,7 @@ int main(void)
 	/* Initialize http server application */
 	httpd_init();
 	lwiperf_start_tcp_server_default(lwiperf_report, NULL);
-	printf ("Type the IP address of the device in a web browser, http://192.168.1.3 \n\r");
+	printf ("Type the IP address of the device in a web browser, http://192.168.32.32 \n\r");
 	while (1) {
 		/* Run polling tasks */
 		ethif_poll(netif);

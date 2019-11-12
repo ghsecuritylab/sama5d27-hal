@@ -141,8 +141,8 @@
 
 /** The IP address used for demo (ping ...) */
 static uint8_t _src_ip_initialized = 1;
-static uint8_t _src_ip[4] = { 192, 168, 1, 3 };
-static uint8_t _dest_ip[4] = { 192, 168, 1, 2 };
+static uint8_t _src_ip[4] = { 192, 168, 32, 32 };
+static uint8_t _dest_ip[4] = { 192, 168, 32, 69 };
 
 /** Buffer for Ethernet packets */
 static uint8_t _eth_buffer[ETH_MAX_FRAME_LENGTH];

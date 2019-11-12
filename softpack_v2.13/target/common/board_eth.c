@@ -153,6 +153,7 @@ static void _eth_rx_callback(uint8_t queue, uint32_t status)
 
 void board_cfg_net(uint8_t iface, uint8_t* mac_addr, bool block)
 {
+  printf("### board_cfg_net\r\n");
 #ifdef CONFIG_HAVE_ETH
 	uint8_t _eth_mac_addr[6];
 

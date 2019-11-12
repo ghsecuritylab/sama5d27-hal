@@ -64,6 +64,7 @@ enum _phy_model {
 	PHY_DM9161AEP,
 	/* Microchip */
 	PHY_LAN8740A,
+        PHY_LAN8720A,
 };
 
 struct _phy_dev {
@@ -81,6 +82,7 @@ static const struct _phy_dev _phy_devices[] = {
 	{ PHY_KSZ9031,   "Micrel KSZ9031",    0x0022, 0x1620 },
 	{ PHY_DM9161AEP, "Davicom DM9161AEP", 0x0181, 0xB8A0 },
 	{ PHY_LAN8740A,  "Microchip LAN8740A",0x0007, 0xC110 },
+        { PHY_LAN8720A,  "Microchip LAN8720A",0x0007, 0xC0F0 },
 };
 
 #ifdef CONFIG_HAVE_EMAC
