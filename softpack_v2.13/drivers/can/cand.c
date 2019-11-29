@@ -397,17 +397,20 @@ int cand_transfer(struct _can_desc* desc, struct _buffer* buf,
 	uint32_t type;
 	uint32_t mask;
 	uint32_t identifier;
+	uint32_t data[2] = { 0 };
 
 	Can *can = desc->addr;
 	struct _cand_mailbox *mb;
 	uint8_t mailbox;
 
-	mailbox = cand_allocate_mailbox(desc);
-	if (mailbox >= CAN_NUM_MAILBOX)
-		return -ENOMEM;
-
-	mb = &desc->mailboxes[mailbox];
-	callback_copy(&mb->cb, cb);
+	if ((buf->attr & CAND_BUF_ATTR_RX) ||
+		(buf->attr & CAND_BUF_ATTR_RX_OVERWRITE) ||
+		(buf->attr & CAND_BUF_ATTR_CONSUMER)) {
+		/* the minimum buffer required for receive is 8 bytes: CAN_MDL & CAN_MDH */
+		if (buf->size < 8)
+			return -ENOBUFS;
+	} else if (buf->size > 8) /* CAN standard supports maximun 8 bytes per frame */
+		return EMSGSIZE;
 
 	if (buf->attr & CAND_BUF_ATTR_RX)
 		type = CAN_MMR_MOT_MB_RX;
@@ -421,6 +424,13 @@ int cand_transfer(struct _can_desc* desc, struct _buffer* buf,
 		type = CAN_MMR_MOT_MB_PRODUCER;
 	else
 		return -EINVAL;
+
+	mailbox = cand_allocate_mailbox(desc);
+	if (mailbox >= CAN_NUM_MAILBOX)
+		return -ENOMEM;
+
+	mb = &desc->mailboxes[mailbox];
+	callback_copy(&mb->cb, cb);
 
 	if (buf->attr & CAND_BUF_ATTR_EXTENDED) {
 		mask = CAN_MID_MIDvB(desc->mask);
@@ -443,8 +453,11 @@ int cand_transfer(struct _can_desc* desc, struct _buffer* buf,
 
 	/* Start TX if not RX */
 	if (buf->attr & CAND_BUF_ATTR_TX_MSK) {
+		/* prepare for transfer, the data in buffer could be un-aligned*/
+		for (uint32_t i = 0; i < buf->size;  i++)
+		*(data + i / 4) |= (uint32_t)buf->data[i] << (i % 4) * 8;
 		/* Fill data registers */
-		can_set_message(can, mailbox, (uint32_t*)buf->data);
+		can_set_message(can, mailbox, data);
 		can_message_control(can, mailbox, CAN_MCR_MDLC(buf->size));
 	}
 

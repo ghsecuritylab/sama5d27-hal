@@ -157,7 +157,7 @@ enum _RX_BUFF_IDX {
  *        Local variables
  *----------------------------------------------------------------------------*/
 
-static uint8_t rx_buffers[_RX_BUFF_CNT][64];
+ALIGNED(32) static uint8_t rx_buffers[_RX_BUFF_CNT][64];
 
 static uint32_t id[] = {0x555, 0x11111111, 0x444};
 
@@ -502,7 +502,10 @@ int main(void)
 		loop_back = true;
 	else
 		loop_back = false;
-	can_bus_mode(0, mode);
+	
+        can_bus_loopback(0, false);
+        can_bus_loopback(1, false);
+        can_bus_mode(0, mode);
 	can_bus_mode(1, mode);
 
 	/* Display menu */

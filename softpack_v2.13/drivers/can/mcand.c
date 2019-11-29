@@ -487,7 +487,7 @@ static void _mcand_tx_buffer_handler(struct _mcan_desc *desc)
 			else
 				mcand_release_ram(desc, MCAN_RAM_TX_BUFFER, buf_idx);
 
-			callback_copy(&ram_item->cb, NULL);
+			callback_call(&ram_item->cb, NULL);
 		}
 	}
 }
@@ -545,7 +545,7 @@ static void _mcand_tx_fifo_handler(struct _mcan_desc *desc)
 
 		mcand_release_ram(desc, MCAN_RAM_TX_FIFO, fifo_idx - fifo_start);
 
-		callback_copy(&ram_item->cb, NULL);
+		callback_call(&ram_item->cb, NULL);
 	}
 }
 
@@ -617,7 +617,7 @@ static void _mcand_rx_proc(struct _mcan_desc *desc, enum _mcan_ram ram, uint32_t
 	if ((ram_item->buf->attr & CAND_BUF_ATTR_RX_OVERWRITE) == 0)
 		mcand_release_ram(desc, ram, buf_idx);
 
-	callback_copy(&ram_item->cb, NULL);
+	callback_call(&ram_item->cb, NULL);
 }
 
 static void _mcand_rx_buffer_handler(struct _mcan_desc *desc)
@@ -862,13 +862,13 @@ static int mcand_set_baudrate(Mcan *mcan, uint32_t freq, uint32_t freq_fd)
 	uint32_t val;
 
 	const struct _mcan_quanta quanta = {
-		.before_sp = 1 + 2 + 12,
-		.after_sp  = 12,
+		.before_sp = 2 + 25,
+		.after_sp  = 1 + 12,
 		.sync_jump = 4,
 	};
 	const struct _mcan_quanta quanta_fd = {
-		.before_sp = 1 + 2 + 5,
-		.after_sp  = 5,
+		.before_sp = 2 + 12,
+		.after_sp  = 1 + 5,
 		.sync_jump = 2,
 	};
 
@@ -1169,6 +1169,7 @@ int mcand_configure(struct _mcan_desc* desc)
 	assert(id0 < ID_PERIPH_COUNT);
 	assert(id1 < ID_PERIPH_COUNT);
 
+	pmc_enable_upll_clock();
 #ifdef PMC_PCR_GCKCSS
 	/* The MCAN peripheral is clocked by both its Peripheral Clock
 	 * and Generated Clock (at least on SAMA5D2x). */
@@ -1177,13 +1178,13 @@ int mcand_configure(struct _mcan_desc* desc)
 	 * divided by 24, 12 or 6 */
 	struct _pmc_periph_cfg cfg = {
 		.gck = {
-			.css = PMC_PCR_GCKCSS_MCK_CLK,
-			.div = 1,
+			.css = PMC_PCR_GCKCSS_UPLL_CLK,
+			.div = 6,
 		},
 	};
 	pmc_configure_peripheral(id0, &cfg, true);
 #else
-	pmc_configure_pck(PMC_PCK_CAN, PMC_PCK_CSS_MCK, 0);
+	pmc_configure_pck(PMC_PCK_CAN, PMC_PCK_CSS_UPLL_CLK, 2);
 	pmc_enable_pck(PMC_PCK_CAN);
 	pmc_configure_peripheral(id0, NULL, true);
 #endif
