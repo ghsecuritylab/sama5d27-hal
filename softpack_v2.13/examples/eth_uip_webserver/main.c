@@ -133,10 +133,10 @@
 static struct uip_eth_addr _mac_addr;
 
 /* The IP address used for demo (ping ...) */
-static const uint8_t _host_ip_addr[4] = {192,168,1,3};
+static const uint8_t _host_ip_addr[4] = {192,168,32,32};
 
 /* Set the default router's IP address. */
-static const uint8_t _route_ip_addr[4] = {192,168,1,1};
+static const uint8_t _route_ip_addr[4] = {192,168,32,69};
 
 /* The _netmask address */
 static const uint8_t _netmask[4] = {255, 255, 255, 0};
