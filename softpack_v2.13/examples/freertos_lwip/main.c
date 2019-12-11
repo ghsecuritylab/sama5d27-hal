@@ -144,7 +144,7 @@ to ticks using the portTICK_PERIOD_MS constant. */
 #define mainTIMER_PERIOD_MS			( 500 / portTICK_PERIOD_MS )
 
 /* The LED toggled by the Rx task. */
-#define mainTIMER_LED				( 2 )
+#define mainTIMER_LED				( 0 )
 
 /* A block time of zero just means "don't block". */
 #define mainDONT_BLOCK				( 0 )
@@ -156,6 +156,30 @@ received packets. */
 /* The priority of the task that runs the lwIP stack. */
 #define configLWIP_TASK_PRIORITY			( configMAX_PRIORITIES - 2 )
 
+
+
+
+/* Priorities at which the tasks are created. */
+#define mainAPP_TASK_PRIORITY           ( tskIDLE_PRIORITY + 1 )   
+#define mainLWIP_TASK_PRIORITY		( tskIDLE_PRIORITY + 2 )
+#define mainLED2_TASK_PRIORITY		( tskIDLE_PRIORITY + 3 )
+
+/*----------------------------------------------------------------------------
+ *        Local variables
+ *----------------------------------------------------------------------------*/
+/*任务句柄*/
+static TaskHandle_t AppTaskCreate_Handle = NULL;
+static TaskHandle_t LWIP_Task_Handle = NULL;
+static TaskHandle_t LED2_Task_Handle = NULL;
+
+/*----------------------------------------------------------------------------
+ *        Local functions
+ *----------------------------------------------------------------------------*/
+static void AppTaskCreate(void);                /*用于创建任务*/
+static void LWIP_Task(void *pvParameters);      /*LWIP_Task任务实现*/
+static void LED2_Task(void *pvParameters);      /*LED2_Task任务实现*/
+
+ip_addr_t serverip;
 
 /*---------------------------------------------------------------------------
  *         Variables
@@ -280,29 +304,30 @@ void lwIP_apps_init( void *arg )
 	netif = netif_add(&NetIf, &ipaddr, &netmask, &gw, NULL, ethif_init, ip_input);
 	netif_set_default(netif);
 	netif_set_up(netif);
+        serverip = ipaddr;
 
 	/* Initialize http server application */
-	httpd_init();
-	lwiperf_start_tcp_server_default(lwiperf_report, NULL);
-	printf ("Type the IP address of the device in a web browser, http://192.168.32.32 \n\r");
+	//httpd_init();
+	//lwiperf_start_tcp_server_default(lwiperf_report, NULL);
+	//printf ("Type the IP address of the device in a web browser, http://192.168.32.32 \n\r");
 
 
-	sys_thread_new( "lwIP_In", (lwip_thread_fn)ethif_input_thread, netif, 
-					SYS_DEFAULT_THREAD_STACK_DEPTH, configMAC_INPUT_TASK_PRIORITY );
+	//sys_thread_new( "lwIP_In", (lwip_thread_fn)ethif_input_thread, netif, 
+	//				SYS_DEFAULT_THREAD_STACK_DEPTH, configMAC_INPUT_TASK_PRIORITY );
 
 	/* A timer is used to toggle an LED just to show the application is executing. */
 
-	TimerHandle_t xTimer = xTimerCreate( 	"LED", 					/* Text name to make debugging easier. */
-							mainTIMER_PERIOD_MS, 	/* The timer's period. */
-							pdTRUE,					/* This is an auto reload timer. */
-							NULL,					/* ID is not used. */
-							prvLEDToggleTimer );	/* The callback function. */
+	//TimerHandle_t xTimer = xTimerCreate( 	"LED", 					/* Text name to make debugging easier. */
+	//						mainTIMER_PERIOD_MS, 	/* The timer's period. */
+	//						pdTRUE,					/* This is an auto reload timer. */
+	//						NULL,					/* ID is not used. */
+	//						prvLEDToggleTimer );	/* The callback function. */
 	
 	/* Start the timer. */
-	configASSERT( xTimer );
-	xTimerStart( xTimer, mainDONT_BLOCK );
+	//configASSERT( xTimer );
+	//xTimerStart( xTimer, mainDONT_BLOCK );
 	/* Start the tasks and timer running. */
-	vTaskStartScheduler();
+	//vTaskStartScheduler();
 
 }
 
@@ -322,5 +347,103 @@ int main( void )
 	/* Init lwIP and start lwIP tasks. */
 	lwIP_apps_init(NULL);
 
-	return 0;
+	//return 0;
+        
+        
+        BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+        
+	xReturn = xTaskCreate((TaskFunction_t )AppTaskCreate,             /* 任务入口函数 */
+                              (const char*    )"AppTaskCreate",           /* 任务名称 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,  /* 任务栈大小 */
+                              (void*          )NULL,                      /* 任务入口函数参数 */
+                              (UBaseType_t    )mainAPP_TASK_PRIORITY,     /* 任务的优先级 */
+                              (TaskHandle_t*  )&AppTaskCreate_Handle);     /* 任务控制块指针 */
+
+	/* 启动任务调度 */           
+        if(pdPASS == xReturn)
+                vTaskStartScheduler();   /* 启动任务，开启调度 */
+        else
+                 return -1;  
+
+	/* If all is well, the scheduler will now be running, and the following
+	line will never be reached.  If the following line does execute, then
+	there was either insufficient FreeRTOS heap memory available for the idle
+	and/or timer tasks to be created, or vTaskStartScheduler() was called from
+	User mode.  See the memory management section on the FreeRTOS web site for
+	more details on the FreeRTOS heap http://www.freertos.org/a00111.html.  The
+	mode from which main() is called is set in the C start up code and must be
+	a privileged mode (not user mode). */
+
+	while(1);
+}
+
+
+/***********************************************************************
+  * @ 函数名  ： AppTaskCreate
+  * @ 功能说明： 为了方便管理，所有的任务创建函数都放在这个函数里面
+  * @ 参数    ： 无  
+  * @ 返回值  ： 无
+  **********************************************************************/
+static void AppTaskCreate(void)
+{
+        BaseType_t xReturn = pdPASS;/* 定义一个创建信息返回值，默认为pdPASS */
+  
+        taskENTER_CRITICAL();           //进入临界区
+  
+        /* 创建LWIP_Task任务 */
+        xReturn = xTaskCreate((TaskFunction_t )LWIP_Task,                       /* 任务入口函数 */
+                              (const char*    )"LWIP_Task",                     /* 任务名字 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,        /* 任务栈大小 */
+                              (void*          )NULL,	                        /* 任务入口函数参数 */
+                              (UBaseType_t    )mainLWIP_TASK_PRIORITY,	        /* 任务的优先级 */
+                              (TaskHandle_t*  )&LWIP_Task_Handle);              /* 任务控制块指针 */
+        if(pdPASS == xReturn)
+                printf("创建LWIP_Task任务成功!\r\n");
+  
+	/* 创建LED2_Task任务 */
+        xReturn = xTaskCreate((TaskFunction_t )LED2_Task,                       /* 任务入口函数 */
+                              (const char*    )"LED2_Task",                     /* 任务名字 */
+                              (uint16_t       )configMINIMAL_STACK_SIZE,        /* 任务栈大小 */
+                              (void*          )NULL,	                        /* 任务入口函数参数 */
+                              (UBaseType_t    )mainLED2_TASK_PRIORITY,	        /* 任务的优先级 */
+                              (TaskHandle_t*  )&LED2_Task_Handle);              /* 任务控制块指针 */
+        if(pdPASS == xReturn)
+                 printf("创建LED2_Task任务成功!\r\n");
+  
+        vTaskDelete(AppTaskCreate_Handle); //删除AppTaskCreate任务
+  
+        taskEXIT_CRITICAL();            //退出临界区
+}
+
+/**********************************************************************
+  * @ 函数名  ： LWIP_Task
+  * @ 功能说明： LWIP_Task任务主体
+  * @ 参数    ：   
+  * @ 返回值  ： 无
+  ********************************************************************/
+static void LWIP_Task(void* parameter)
+{	
+    while (1)
+    {
+        lwiperf_start_tcp_server( &serverip, 5021, NULL, NULL );
+            
+        vTaskDelay( 2000 / portTICK_PERIOD_MS );
+    }
+}
+
+/**********************************************************************
+  * @ 函数名  ： LED_Task
+  * @ 功能说明： LED_Task任务主体
+  * @ 参数    ：   
+  * @ 返回值  ： 无
+  ********************************************************************/
+static void LED2_Task(void* parameter)
+{	
+    while (1)
+    {
+        led_toggle(LED_RED);
+        
+        /* Simply toggle the LED every 500ms, blocking between each toggle. */
+        vTaskDelay(500/portTICK_RATE_MS);
+    }
 }
