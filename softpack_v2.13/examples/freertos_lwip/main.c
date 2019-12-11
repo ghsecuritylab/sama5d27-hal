@@ -398,7 +398,7 @@ static void AppTaskCreate(void)
                               (UBaseType_t    )mainLWIP_TASK_PRIORITY,	        /* 任务的优先级 */
                               (TaskHandle_t*  )&LWIP_Task_Handle);              /* 任务控制块指针 */
         if(pdPASS == xReturn)
-                printf("创建LWIP_Task任务成功!\r\n");
+                printf("LWIP_Task init success!\r\n");
   
 	/* 创建LED2_Task任务 */
         xReturn = xTaskCreate((TaskFunction_t )LED2_Task,                       /* 任务入口函数 */
@@ -408,7 +408,7 @@ static void AppTaskCreate(void)
                               (UBaseType_t    )mainLED2_TASK_PRIORITY,	        /* 任务的优先级 */
                               (TaskHandle_t*  )&LED2_Task_Handle);              /* 任务控制块指针 */
         if(pdPASS == xReturn)
-                 printf("创建LED2_Task任务成功!\r\n");
+                 printf("LED2_Task init success!\r\n");
   
         vTaskDelete(AppTaskCreate_Handle); //删除AppTaskCreate任务
   
@@ -423,9 +423,12 @@ static void AppTaskCreate(void)
   ********************************************************************/
 static void LWIP_Task(void* parameter)
 {	
+    ip_addr_t  perf_server_ip;
+    
+    IP_ADDR4( &perf_server_ip, 192, 168, 32, 32 ); //IP 为静态IP
     while (1)
     {
-        lwiperf_start_tcp_server( &serverip, 5021, NULL, NULL );
+        lwiperf_start_tcp_server( &perf_server_ip, 9527, NULL, NULL );
             
         vTaskDelay( 2000 / portTICK_PERIOD_MS );
     }
