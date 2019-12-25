@@ -97,6 +97,11 @@
 #include "serial/usart.h"
 #include "serial/usartd.h"
 
+#include "middle_gnss.h"
+#include "middle_radio.h"
+#include "gprs.h"
+#include "mng.h"
+#include "imu.h"
 
 #ifdef VARIANT_DDRAM
 #define CMD_BUFFER_SIZE   256*1024
@@ -372,6 +377,15 @@ int main (void)
 {
 	/* Output example information */
 	console_example_info("USART Example");
+
+	/*middleware test*/
+	gnss_test();
+	radio_test();
+
+	/*middleware test*/
+	gprs_test();
+	imu_test();
+	mng_test();
 
 	/* Configure console interrupts */
 	console_set_rx_handler(console_handler);
