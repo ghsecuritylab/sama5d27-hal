@@ -28,4 +28,4 @@
 
 CFLAGS_INC += -I$(TOP)/middleware/middle_gnss
 
-obj-y += middleware/middle_gnss/middle_gnss.o
+middleware-y += middleware/middle_gnss/middle_gnss.o

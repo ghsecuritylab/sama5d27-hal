@@ -318,6 +318,8 @@ generate-ewp() {
     rm -f "$DIR/iar_project.tail"
 
     tpl-set-deps      "$tpl" "target"        "$target_y"
+    tpl-set-deps      "$tpl" "middleware"    "$middleware_y"
+    tpl-set-deps      "$tpl" "function_module"    "$function_module_y"
     tpl-set-deps      "$tpl" "utils"         "$utils_y"
     tpl-set-deps      "$tpl" "arch"          "$arch_y"
     tpl-set-deps      "$tpl" "drivers"       "$drivers_y"

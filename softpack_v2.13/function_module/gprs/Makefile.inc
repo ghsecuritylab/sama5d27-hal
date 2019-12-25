@@ -28,4 +28,4 @@
 
 CFLAGS_INC += -I$(TOP)/function_module/gprs
 
-obj-y += function_module/gprs/gprs.o
+function_module-y += function_module/gprs/gprs.o

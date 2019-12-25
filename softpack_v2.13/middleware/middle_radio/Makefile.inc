@@ -28,4 +28,4 @@
 
 CFLAGS_INC += -I$(TOP)/middleware/middle_radio
 
-obj-y += middleware/middle_radio/middle_radio.o
+middleware-y += middleware/middle_radio/middle_radio.o

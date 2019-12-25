@@ -59,6 +59,8 @@ iar-env:
 	$(Q)echo utils_y=\"$(utils-y)\"                       >> .env-$(VARIANT).sh
 	$(Q)echo arch_y=\"$(arch-y)\"                         >> .env-$(VARIANT).sh
 	$(Q)echo drivers_y=\"$(drivers-y)\"                   >> .env-$(VARIANT).sh
+	$(Q)echo middleware_y=\"$(middleware-y)\"             >> .env-$(VARIANT).sh
+	$(Q)echo function_module_y=\"$(function_module-y)\"   >> .env-$(VARIANT).sh
 	$(Q)echo lwip_y=\"$(lwip-y)\"                         >> .env-$(VARIANT).sh
 	$(Q)echo uip_y=\"$(uip-y)\"                           >> .env-$(VARIANT).sh
 	$(Q)echo usb_y=\"$(usb-y)\"                           >> .env-$(VARIANT).sh

@@ -28,4 +28,4 @@
 
 CFLAGS_INC += -I$(TOP)/function_module/mng
 
-obj-y += function_module/mng/mng.o
+function_module-y += function_module/mng/mng.o

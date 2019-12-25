@@ -28,4 +28,4 @@
 
 CFLAGS_INC += -I$(TOP)/function_module/imu
 
-obj-y += function_module/imu/imu.o
+function_module-y += function_module/imu/imu.o
