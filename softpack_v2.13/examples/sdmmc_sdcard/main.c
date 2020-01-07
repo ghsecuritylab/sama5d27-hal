@@ -121,6 +121,10 @@
 #include "trace.h"
 #include "swab.h"
 
+#include "board_spi.h"
+#include "nvm/spi-nor/spi-nor.h"
+#include "spi/qspi.h"
+
 #ifdef CONFIG_HAVE_SHA
 #include "crypto/shad.h"
 #include "intmath.h"
@@ -222,6 +226,8 @@
 const char test_file_path[] = "u-boot.bin";
 
 TCHAR package_name[256];
+int package_flg = 0;
+struct spi_flash* flash;
 
 #ifdef CONFIG_HAVE_SDMMC
 
@@ -330,7 +336,7 @@ static void print_buffer(uint32_t len, const uint8_t *data)
  */
 static void display_menu(void)
 {
-	printf("\n\rSD Card menu:\n\r");
+	printf("\n\rSD Card menu - v2.0:\n\r");
 	printf("   h: Display this menu\n\r");
 #ifdef SLOT1_ID
 	printf("   t: Toggle between Slot%c0%c" SLOT0_TAG " and Slot%c1%c"
@@ -436,7 +442,7 @@ static bool show_device_info(sSdCard *pSd)
 }
 
 /*wwl add
-* find_package
+* find firmware package
 */
 static int find_package(const TCHAR *src, const TCHAR *dest)
 {
@@ -502,6 +508,7 @@ static bool mount_volume(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
                 {
                         strcpy(package_name, fno.fname);
                         printf("*** find package!\r\n");
+                        package_flg = 1;
                         printf("*** package_name = %s \r\n", package_name);
                 }
 	}
@@ -523,6 +530,7 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 	UINT len;
 	FRESULT res;
 	bool rc = true;
+        int ret = 0;
 
 	memset(fs, 0, sizeof(FATFS));
 	res = f_mount(fs, drive_path, 1);
@@ -581,11 +589,26 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		return false;
 	}
         
-        /*res = f_unlink(file_path);
-        if (res != FR_OK) {
-		trace_error("Failed to unlink file, error %d\n\r", res);
-		return false;
-	}*/
+        /*write update*.bin from emmc to spi nor flash*/
+        printf("*** erasing block at 0x%08x\r\n", 0x500000);
+	ret = spi_nor_erase(flash, 0x500000, 0x400000);
+	printf("*** erase returns %d\r\n", ret);
+        
+        printf("*** preparing write firmware\r\n");
+        printf("writing %d bytes at 0x%08x\r\n", file_size, 0x500000);
+        ret = spi_nor_write(flash, 0x500000, data_buf, file_size);
+	printf("*** write returns %d\r\n", ret);
+        
+        if(ret == 0){
+                printf("*** update firmware success & rm update*.bin\r\n");
+                res = f_unlink(file_path);
+                if (res != FR_OK) {
+                        trace_error("Failed to unlink file, error %d\n\r", res);
+                        return false;
+                }
+        }
+        
+        printf("*** reboot ***\r\n");
 	return rc;
 }
 
@@ -627,6 +650,11 @@ bool SD_GetInstance(uint8_t index, sSdCard **holder)
 	}
 	return true;
 }
+
+/*qspi*/
+#define BOARD_SPI_FLASH_QSPI0 0
+
+
 
 /**
  *  \brief SD Card Application entry point.
@@ -752,6 +780,8 @@ int main(void)
 #endif
 	initialize();
 
+        flash = board_get_spi_flash(BOARD_SPI_FLASH_QSPI0);
+        
 	/* Display menu */
 	/*slot = 0;
 	lib = &lib0;*/
@@ -806,8 +836,10 @@ int main(void)
 				printf("Device not detected.\n\r");
 				break;
 			}
-			read_file(slot, lib, &fs_header);
-			unmount_volume(slot, lib);
+                        if(package_flg == 1) {
+                                read_file(slot, lib, &fs_header);
+			}
+                        unmount_volume(slot, lib);
 			break;
 		case 'w':
 			if (SD_GetStatus(lib) == SDMMC_NOT_SUPPORTED) {
