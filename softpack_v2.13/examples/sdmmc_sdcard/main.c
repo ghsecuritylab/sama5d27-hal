@@ -219,7 +219,9 @@
  *        Local variables
  *----------------------------------------------------------------------------*/
 
-const char test_file_path[] = "test_data.bin";
+const char test_file_path[] = "u-boot.bin";
+const char rename_file_path[] = "rename_u-boot.bin";
+TCHAR package_name[256];
 
 #ifdef CONFIG_HAVE_SDMMC
 
@@ -433,6 +435,36 @@ static bool show_device_info(sSdCard *pSd)
 	return true;
 }
 
+/*wwl add
+* find_package
+*/
+static int find_package(const TCHAR *src, const TCHAR *dest)
+{
+        int L1,L2,M,i;
+        int j=0,c=0;
+        
+        L1=strlen(src);
+        L2=strlen(dest);
+        M=L1-L2;
+        
+        if(M>=0 && M<L1)
+        {
+                for(i=0; i<=L1-1; i++) {
+                        if(src[i] == dest[j])
+                        {
+                                j++;
+                                c++;
+                        }
+                }
+                if(c == L2)
+                        return 1;
+                else
+                        return 0;
+        }
+        
+        return 0;
+}
+
 static bool mount_volume(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 {
 	const TCHAR drive_path[] = { '0' + slot_ix, ':', '\0' };
@@ -465,6 +497,13 @@ static bool mount_volume(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		is_dir = fno.fattrib & AM_DIR ? true : false;
 		printf("    %s%s%c\n\r", is_dir ? "[" : "", fno.fname,
 		    is_dir ? ']' : ' ');
+                
+                if(find_package(fno.fname, "update.bin") == 1)
+                {
+                        strcpy(package_name, fno.fname);
+                        printf("*** find package!\r\n");
+                        printf("*** package_name = %s \r\n", package_name);
+                }
 	}
 
 	res = f_closedir(&dir);
@@ -479,7 +518,8 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 {
 	const TCHAR drive_path[] = { '0' + slot_ix, ':', '\0' };
 	const UINT buf_size = BLOCK_CNT_MAX * 512ul;
-	TCHAR file_path[sizeof(drive_path) + sizeof(test_file_path)];
+	TCHAR file_path[sizeof(drive_path) + sizeof(package_name)];
+        TCHAR rename_path[sizeof(drive_path) + sizeof(rename_file_path)];
 	uint32_t file_size;
 	UINT len;
 	FRESULT res;
@@ -492,7 +532,13 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		return false;
 	}
 	strcpy(file_path, drive_path);
-	strcat(file_path, test_file_path);
+	strcat(file_path, package_name);
+        printf("*** file_path = %s \r\n", file_path);
+        
+        /*strcpy(rename_path, drive_path);
+	strcat(rename_path, rename_file_path);
+        printf("### rename_path = %s \r\n", rename_path);*/
+        
 	res = f_open(&f_header, file_path, FA_OPEN_EXISTING | FA_READ);
 	if (res != FR_OK) {
 		printf("Failed to open \"%s\", error %d\n\r", file_path, res);
@@ -533,6 +579,12 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 				swab32(hash[4]));
 	}
 #endif
+        /*res = f_rename(file_path, rename_path);
+        if (res != FR_OK) {
+		trace_error("Failed to rename file, error %d\n\r", res);
+		return false;
+	}*/
+        
 	res = f_close(&f_header);
 	if (res != FR_OK) {
 		trace_error("Failed to close file, error %d\n\r", res);
@@ -705,8 +757,15 @@ int main(void)
 	initialize();
 
 	/* Display menu */
-	slot = 0;
-	lib = &lib0;
+	/*slot = 0;
+	lib = &lib0;*/
+        
+        /*wwl add
+        * sd1
+        */
+        slot = 1;
+	lib = &lib1;
+        
 	display_menu();
 
 	while (true) {
