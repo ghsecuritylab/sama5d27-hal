@@ -220,7 +220,7 @@
  *----------------------------------------------------------------------------*/
 
 const char test_file_path[] = "u-boot.bin";
-const char rename_file_path[] = "rename_u-boot.bin";
+
 TCHAR package_name[256];
 
 #ifdef CONFIG_HAVE_SDMMC
@@ -519,7 +519,6 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 	const TCHAR drive_path[] = { '0' + slot_ix, ':', '\0' };
 	const UINT buf_size = BLOCK_CNT_MAX * 512ul;
 	TCHAR file_path[sizeof(drive_path) + sizeof(package_name)];
-        TCHAR rename_path[sizeof(drive_path) + sizeof(rename_file_path)];
 	uint32_t file_size;
 	UINT len;
 	FRESULT res;
@@ -534,10 +533,6 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 	strcpy(file_path, drive_path);
 	strcat(file_path, package_name);
         printf("*** file_path = %s \r\n", file_path);
-        
-        /*strcpy(rename_path, drive_path);
-	strcat(rename_path, rename_file_path);
-        printf("### rename_path = %s \r\n", rename_path);*/
         
 	res = f_open(&f_header, file_path, FA_OPEN_EXISTING | FA_READ);
 	if (res != FR_OK) {
@@ -579,17 +574,18 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 				swab32(hash[4]));
 	}
 #endif
-        /*res = f_rename(file_path, rename_path);
-        if (res != FR_OK) {
-		trace_error("Failed to rename file, error %d\n\r", res);
-		return false;
-	}*/
         
 	res = f_close(&f_header);
 	if (res != FR_OK) {
 		trace_error("Failed to close file, error %d\n\r", res);
 		return false;
 	}
+        
+        /*res = f_unlink(file_path);
+        if (res != FR_OK) {
+		trace_error("Failed to unlink file, error %d\n\r", res);
+		return false;
+	}*/
 	return rc;
 }
 
