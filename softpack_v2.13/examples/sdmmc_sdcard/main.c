@@ -155,6 +155,8 @@
 /*----------------------------------------------------------------------------
  *        Local definitions
  *----------------------------------------------------------------------------*/
+#define IMG_SIZE                    0x400000
+#define IMG_ADDR                    0x100000
 
 #define BLOCK_CNT_MAX               256u
 #define DMADL_CNT_MAX               512u
@@ -223,9 +225,9 @@
  *        Local variables
  *----------------------------------------------------------------------------*/
 
-const char test_file_path[] = "u-boot.bin";
+const char package_name[] = "update.bin";
 
-TCHAR package_name[256];
+TCHAR package_path[256];
 int package_flg = 0;
 struct spi_flash* flash;
 
@@ -324,7 +326,7 @@ static void print_buffer(uint32_t len, const uint8_t *data)
 	uint32_t ix;
 
 	for (ix = 0; data < data_nxt; data++, ix++) {
-		if (ix % 32 == 0)
+		if (ix % 16 == 0)
 			printf("\n\r%03lx:    ", ix);
 		printf(format + (ix % 4 ? 1 : 0), *data);
 	}
@@ -350,7 +352,7 @@ static void display_menu(void)
 #endif
 	printf("   i: Display device info\n\r");
 	printf("   l: Mount FAT file system and list files\n\r");
-	printf("   r: Read the file named '%s'\n\r", test_file_path);
+	printf("   r: Read the file named '%s'\n\r", package_name);
 	printf("   w: Perform a basic RAW read/write test.\n\r");
 	printf("\n\r");
 }
@@ -504,12 +506,12 @@ static bool mount_volume(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		printf("    %s%s%c\n\r", is_dir ? "[" : "", fno.fname,
 		    is_dir ? ']' : ' ');
                 
-                if(find_package(fno.fname, "update.bin") == 1)
+                if(find_package(fno.fname, package_name) == 1)
                 {
-                        strcpy(package_name, fno.fname);
+                        strcpy(package_path, fno.fname);
                         printf("*** find package!\r\n");
                         package_flg = 1;
-                        printf("*** package_name = %s \r\n", package_name);
+                        printf("*** package_path = %s \r\n", package_path);
                 }
 	}
 
@@ -525,7 +527,7 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 {
 	const TCHAR drive_path[] = { '0' + slot_ix, ':', '\0' };
 	const UINT buf_size = BLOCK_CNT_MAX * 512ul;
-	TCHAR file_path[sizeof(drive_path) + sizeof(package_name)];
+	TCHAR file_path[sizeof(drive_path) + sizeof(package_path)];
 	uint32_t file_size;
 	UINT len;
 	FRESULT res;
@@ -539,7 +541,7 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		return false;
 	}
 	strcpy(file_path, drive_path);
-	strcat(file_path, package_name);
+	strcat(file_path, package_path);
         printf("*** file_path = %s \r\n", file_path);
         
 	res = f_open(&f_header, file_path, FA_OPEN_EXISTING | FA_READ);
@@ -547,12 +549,26 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 		printf("Failed to open \"%s\", error %d\n\r", file_path, res);
 		return false;
 	}
+        
+        printf("*** erasing block at 0x%08x\r\n", IMG_ADDR);
+	ret = spi_nor_erase(flash, IMG_ADDR, IMG_SIZE);
+	//printf("*** erase returns %d\r\n", ret);
+        
 #ifdef CONFIG_HAVE_SHA
 	shad_start(&shad);
 #endif
 	for (file_size = 0, len = buf_size; res == FR_OK && len == buf_size;
 	    file_size += len) {
+                //printf("### file_size = %lu\r\n", file_size);
 		res = f_read(&f_header, data_buf, buf_size, &len);
+                //printf("*** len = %lu\r\n", len);
+                
+                //print_buffer(len, data_buf);
+                printf("*** preparing write firmware\r\n");
+                printf("writing %d bytes at 0x%08x\r\n", len, IMG_ADDR + file_size);
+                ret = spi_nor_write(flash, IMG_ADDR + file_size, data_buf, len);
+                //printf("*** write returns %d\r\n", ret);
+                
 		if (res == FR_OK) {
 #ifdef CONFIG_HAVE_SHA
 			sha_buf.attr = 0;
@@ -582,22 +598,13 @@ static bool read_file(uint8_t slot_ix, sSdCard *pSd, FATFS *fs)
 				swab32(hash[4]));
 	}
 #endif
+        printf("*** Read Firmware %lu bytes",file_size);
         
 	res = f_close(&f_header);
 	if (res != FR_OK) {
 		trace_error("Failed to close file, error %d\n\r", res);
 		return false;
 	}
-        
-        /*write update*.bin from emmc to spi nor flash*/
-        printf("*** erasing block at 0x%08x\r\n", 0x500000);
-	ret = spi_nor_erase(flash, 0x500000, 0x400000);
-	printf("*** erase returns %d\r\n", ret);
-        
-        printf("*** preparing write firmware\r\n");
-        printf("writing %d bytes at 0x%08x\r\n", file_size, 0x500000);
-        ret = spi_nor_write(flash, 0x500000, data_buf, file_size);
-	printf("*** write returns %d\r\n", ret);
         
         if(ret == 0){
                 printf("*** update firmware success & rm update*.bin\r\n");
