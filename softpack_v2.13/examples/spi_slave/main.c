@@ -258,9 +258,9 @@ static int _spi_slave_transfer_callback(void* arg, void* arg2)
 
 void imu_init_reset(void)
 {
-	led_set(IMU_RST);
-        msleep(50);
-        led_clear(IMU_RST);
+	//led_set(IMU_RST);
+        msleep(300);
+        //led_clear(IMU_RST);
         msleep(1000);
 }
 
@@ -305,10 +305,10 @@ static int imu_type_check(void)
 	
 	msleep(50);	// Wait 50 ms until the imu is accessible via SPI
 
-	imu_reg_read_true_data(ADIS16465_REG_PROD_ID, &imu_reg_data);
+	imu_reg_read_true_data(IMU381_REG_PROD_ID, &imu_reg_data);
         printf("### imu_reg_data = 0x%04x\r\n", imu_reg_data);
         
-        if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
+        //if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
 	{
 		uint16_t rang_flag = 0;
 
@@ -421,29 +421,14 @@ int main(void)
 	console_example_info("SPI Master IMU Example");
 
 	/* Configure SPI slave */
-	//pio_configure(pins_spi_slave, ARRAY_SIZE(pins_spi_slave));
-	//spid_configure(&spi_slave_dev);
-	//spid_configure_master(&spi_slave_dev, false);
-	//spid_configure_cs(&spi_slave_dev, 0, 0, 0, 0, SPID_MODE_0);
-
 	bus_configure_slave(spi_master_dev.bus, &spi_master_dev);
 
 	//_display_menu();
         
-        led_set(LED_BLUE);
-        led_set(LED_GREEN);
-        led_set(IMU_EN);
+        //led_set(IMU_RST);
         
-        led_set(IMU_RST);
-        led_clear(IMU_SYNC);
-        
-        //led_set(IMU_CS);
-        //led_clear(IMU_CS);
-        //led_set(IMU_CS);
-                
-                
         _spi_transfer();
-          
+        
 	//while (1) {
 		//key = console_get_char();
 		//switch (key) {

@@ -112,6 +112,7 @@ void board_cfg_spi_bus(void)
 	};
 	pio_configure(pins_spi_bus1, ARRAY_SIZE(pins_spi_bus1));
 	bus_configure(BUS(BUS_TYPE_SPI, 1), &iface_bus1);
+        printf("*** board_cfg_spi_bus-1\r\n");
 #endif
 #ifdef BOARD_SPI_BUS2
 	const struct _pin pins_spi_bus2[] = BOARD_SPI_BUS2_PINS;

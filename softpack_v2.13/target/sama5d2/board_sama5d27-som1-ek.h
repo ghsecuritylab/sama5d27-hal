@@ -80,11 +80,12 @@
 /* RGB LED index */
 #define LED_RED   0
 #define LED_GREEN 1
-#define LED_BLUE  2
-#define IMU_SYNC 3
-#define IMU_RST  4
-#define IMU_EN   5
-#define IMU_CS   6
+/*#define IMU_RST         0
+#define IMU_BOOT        1*/
+#define IMU_DR          2
+/*#define IMU_GPIO1       3
+#define IMU_GPIO2       4
+#define IMU_CS          5*/
 
 /** LED #0 pin definition (Red). */
 #define PIN_LED_0 { PIO_GROUP_A, PIO_PA10, PIO_OUTPUT_0, PIO_DEFAULT }
@@ -92,25 +93,28 @@
 /** LED #1 pin definition (Green). */
 #define PIN_LED_1 { PIO_GROUP_D, PIO_PD25, PIO_OUTPUT_1, PIO_DEFAULT }
 
-/** LED #2 pin definition (Blue). */
-#define PIN_LED_2 { PIO_GROUP_B, PIO_PB31, PIO_OUTPUT_1, PIO_DEFAULT }
-
-/** LED #1 pin definition (IMU_SYNC). */
-#define PIN_LED_3 { PIO_GROUP_A, PIO_PA18, PIO_OUTPUT_0, PIO_DEFAULT }
-
 /** LED #2 pin definition (IMU_RST). */
-#define PIN_LED_4 { PIO_GROUP_A, PIO_PA19, PIO_OUTPUT_1, PIO_DEFAULT }
+/*#define PIN_LED_0 { PIO_GROUP_C, PIO_PC5, PIO_OUTPUT_1, PIO_DEFAULT }*/
 
-/** LED #2 pin definition (IMU_EN). */
-#define PIN_LED_5 { PIO_GROUP_A, PIO_PA20, PIO_OUTPUT_0, PIO_DEFAULT }
+/** LED #2 pin definition (IMU_BOOT). */
+/*#define PIN_LED_1 { PIO_GROUP_D, PIO_PD18, PIO_OUTPUT_0, PIO_DEFAULT }*/
    
+/** LED #2 pin definition (IMU_DR). */
+#define PIN_LED_2 { PIO_GROUP_D, PIO_PD15, PIO_INPUT, PIO_DEFAULT }
+
+/** LED #2 pin definition (IMU_GPIO1). */
+/*#define PIN_LED_3 { PIO_GROUP_D, PIO_PD16, PIO_OUTPUT_0, PIO_DEFAULT }*/
+
+/** LED #2 pin definition (IMU_GPIO2). */
+/*#define PIN_LED_4 { PIO_GROUP_D, PIO_PD17, PIO_OUTPUT_0, PIO_DEFAULT }*/
+
 /** LED #2 pin definition (IMU_CS). */
-/*#define PIN_LED_6 { PIO_GROUP_A, PIO_PA17, PIO_OUTPUT_1, PIO_DEFAULT }*/
+/*#define PIN_LED_6 { PIO_GROUP_C, PIO_PC4, PIO_OUTPUT_1, PIO_DEFAULT }*/
 
 /** List of all LEDs definitions. */
-#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2, PIN_LED_3, PIN_LED_4, PIN_LED_5}
+#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2 }
 
-#define NUM_LEDS  6
+#define NUM_LEDS  3
 
 /* =================== PWM LED definition ====================== */
 
@@ -178,9 +182,9 @@
 #define BOARD_SPI_BUS0       FLEXSPI4
 #define BOARD_SPI_BUS0_MODE  BUS_TRANSFER_MODE_POLLING*/
 
-#define BOARD_SPI_BUS0_PINS PINS_SPI0_NPCS0_IOS1
-#define BOARD_SPI_BUS0       SPI0
-#define BOARD_SPI_BUS0_MODE  BUS_TRANSFER_MODE_POLLING
+#define BOARD_SPI_BUS1_PINS  PINS_SPI1_NPCS0_IOS1
+#define BOARD_SPI_BUS1       SPI1
+#define BOARD_SPI_BUS1_MODE  BUS_TRANSFER_MODE_POLLING
 
 /* ================== PIN USB definition ======================= */
 
