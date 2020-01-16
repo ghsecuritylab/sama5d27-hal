@@ -39,7 +39,8 @@ extern "C" {
 #define IMU381_REG_OUT_SCAL      0x7000
 #define IMU381_ZERO_CMD					 0x0000
 
-
+#define IMU330_REG_PROD_ID		   0x5600
+  
 //------------Function----------------------------
 
 uint16_t imu381_reg_read_16bit(uint16_t addr, uint16_t *rx_data);

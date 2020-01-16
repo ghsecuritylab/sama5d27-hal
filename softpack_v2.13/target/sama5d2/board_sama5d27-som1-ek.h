@@ -80,9 +80,9 @@
 /* RGB LED index */
 #define LED_RED   0
 #define LED_GREEN 1
-/*#define IMU_RST         0
-#define IMU_BOOT        1*/
 #define IMU_DR          2
+#define IMU_RST         3
+#define IMU_BOOT        4
 /*#define IMU_GPIO1       3
 #define IMU_GPIO2       4
 #define IMU_CS          5*/
@@ -93,14 +93,15 @@
 /** LED #1 pin definition (Green). */
 #define PIN_LED_1 { PIO_GROUP_D, PIO_PD25, PIO_OUTPUT_1, PIO_DEFAULT }
 
-/** LED #2 pin definition (IMU_RST). */
-/*#define PIN_LED_0 { PIO_GROUP_C, PIO_PC5, PIO_OUTPUT_1, PIO_DEFAULT }*/
 
 /** LED #2 pin definition (IMU_BOOT). */
-/*#define PIN_LED_1 { PIO_GROUP_D, PIO_PD18, PIO_OUTPUT_0, PIO_DEFAULT }*/
+#define PIN_LED_4 { PIO_GROUP_D, PIO_PD18, PIO_OUTPUT_0, PIO_DEFAULT }
    
 /** LED #2 pin definition (IMU_DR). */
-#define PIN_LED_2 { PIO_GROUP_D, PIO_PD15, PIO_INPUT, PIO_DEFAULT }
+#define PIN_LED_2 { PIO_GROUP_D, PIO_PD15, PIO_OUTPUT_1, PIO_DEFAULT }
+
+/** LED #2 pin definition (IMU_RST). */
+#define PIN_LED_3 { PIO_GROUP_C, PIO_PC5, PIO_OUTPUT_1, PIO_DEFAULT }
 
 /** LED #2 pin definition (IMU_GPIO1). */
 /*#define PIN_LED_3 { PIO_GROUP_D, PIO_PD16, PIO_OUTPUT_0, PIO_DEFAULT }*/
@@ -112,9 +113,9 @@
 /*#define PIN_LED_6 { PIO_GROUP_C, PIO_PC4, PIO_OUTPUT_1, PIO_DEFAULT }*/
 
 /** List of all LEDs definitions. */
-#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2 }
+#define PINS_LEDS { PIN_LED_0, PIN_LED_1, PIN_LED_2, PIN_LED_3, PIN_LED_4 }
 
-#define NUM_LEDS  3
+#define NUM_LEDS  5
 
 /* =================== PWM LED definition ====================== */
 

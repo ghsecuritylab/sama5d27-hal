@@ -258,9 +258,9 @@ static int _spi_slave_transfer_callback(void* arg, void* arg2)
 
 void imu_init_reset(void)
 {
-	//led_set(IMU_RST);
+	led_set(IMU_RST);
         msleep(300);
-        //led_clear(IMU_RST);
+        led_clear(IMU_RST);
         msleep(1000);
 }
 
@@ -303,12 +303,14 @@ static int imu_type_check(void)
 {
 	uint16_t imu_reg_data = 0;
 	
-	msleep(50);	// Wait 50 ms until the imu is accessible via SPI
+	msleep(100);	// Wait 50 ms until the imu is accessible via SPI
 
-	imu_reg_read_true_data(IMU381_REG_PROD_ID, &imu_reg_data);
+        //led_set(IMU_CS);
+	imu_reg_read_true_data(IMU330_REG_PROD_ID, &imu_reg_data);
+        //led_clear(IMU_CS);
         printf("### imu_reg_data = 0x%04x\r\n", imu_reg_data);
         
-        //if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
+        if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
 	{
 		uint16_t rang_flag = 0;
 
@@ -344,8 +346,8 @@ static void _spi_transfer(void)
         
         //bus_start_transaction(spi_master_dev.bus);
         
-        //while(1)
-        //{
+        while(1)
+        {
                 imu_type = imu_type_check();
                 switch(imu_type)
                 {
@@ -366,11 +368,11 @@ static void _spi_transfer(void)
 			printf("IMU TYPE ADIS16465-2 USED\r\n");
 			break;
                       default:
-			printf("imu type unknow\r\n");
+			//printf("imu type unknow\r\n");
 			break;
                         //return -1;
-	}
-        //}
+                }
+        }
         //bus_stop_transaction(spi_master_dev.bus);
         
 	/*for (i = 0; i < DMA_TRANS_SIZE; i++)
