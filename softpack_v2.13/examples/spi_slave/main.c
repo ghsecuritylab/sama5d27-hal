@@ -209,10 +209,10 @@ static const struct _bus_dev_cfg spi_master_dev = {
 	.spi_dev = {
 		.chip_select = SPI_MASTER_CS,
 		.bitrate = SPI_MASTER_BITRATE,
-		.delay = {
+		/*.delay = {
 			.bs = 0,
 			.bct = 0,
-		},
+		},*/
 		.spi_mode = SPID_MODE_3,
 	},
 };
@@ -258,9 +258,9 @@ static int _spi_slave_transfer_callback(void* arg, void* arg2)
 
 void imu_init_reset(void)
 {
-	led_set(IMU_RST);
+	//led_set(IMU_RST);
         msleep(300);
-        led_clear(IMU_RST);
+        //led_clear(IMU_RST);
         msleep(1000);
 }
 
