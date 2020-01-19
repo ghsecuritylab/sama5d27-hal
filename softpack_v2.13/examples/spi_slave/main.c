@@ -207,12 +207,12 @@ static const struct _pin pins_spi_slave[] = SPI_SLAVE_PINS;
 static const struct _bus_dev_cfg spi_master_dev = {
 	.bus = SPI_MASTER_BUS,
 	.spi_dev = {
-		.chip_select = SPI_MASTER_CS,
+		//.chip_select = SPI_MASTER_CS,
 		.bitrate = SPI_MASTER_BITRATE,
-		/*.delay = {
+		.delay = {
 			.bs = 0,
 			.bct = 0,
-		},*/
+		},
 		.spi_mode = SPID_MODE_3,
 	},
 };
@@ -258,10 +258,10 @@ static int _spi_slave_transfer_callback(void* arg, void* arg2)
 
 void imu_init_reset(void)
 {
-	//led_set(IMU_RST);
+	led_set(IMU_RST);
         msleep(300);
-        //led_clear(IMU_RST);
-        msleep(1000);
+        led_clear(IMU_RST);
+        msleep(500);
 }
 
 static int imu_reg_read_16bit_data(uint16_t addr,uint16_t *data)
@@ -277,11 +277,11 @@ static int imu_reg_read_16bit_data(uint16_t addr,uint16_t *data)
         bus_start_transaction(spi_master_dev.bus);
         bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &master_buf, 1, NULL);
         
-        usleep(10);
+        usleep(30);
         
         bus_transfer(spi_master_dev.bus, spi_master_dev.spi_dev.chip_select, &slave_buf, 1, NULL);
         
-        
+       
         printf("###spi_buffer_slave_rx[0] = 0x%02x\r\n",spi_buffer_slave_rx[0]);
         printf("###spi_buffer_slave_rx[1] = 0x%02x\r\n",spi_buffer_slave_rx[1]);
         *data = (uint16_t)(spi_buffer_slave_rx[0]<<8|spi_buffer_slave_rx[1]);
@@ -294,22 +294,24 @@ static int imu_reg_read_true_data(uint16_t addr,uint16_t *data)
 	if(!data)
 		return -1;
 	imu_reg_read_16bit_data(addr, data);
-	usleep(20);
-	imu_reg_read_16bit_data(addr, data);
+	usleep(30);
+	//imu_reg_read_16bit_data(addr, data);
 	return 0;
 }
 
 static int imu_type_check(void)
 {
 	uint16_t imu_reg_data = 0;
+        uint16_t imu_reg_back = 0;
 	
-	msleep(100);	// Wait 50 ms until the imu is accessible via SPI
+	//msleep(100);	// Wait 50 ms until the imu is accessible via SPI
 
-        //led_set(IMU_CS);
+        led_set(IMU_CS);
 	imu_reg_read_true_data(IMU330_REG_PROD_ID, &imu_reg_data);
-        //led_clear(IMU_CS);
+        led_clear(IMU_CS);
         printf("### imu_reg_data = 0x%04x\r\n", imu_reg_data);
         
+         
         if( imu_reg_data ==  ADIS16465_DEV_ID  || imu_reg_data == ADIS16505_DEV_ID)
 	{
 		uint16_t rang_flag = 0;
@@ -326,6 +328,10 @@ static int imu_type_check(void)
 				return IMU_TYPE_ADIS16465_3;
 		}
 	}
+        else if(imu_reg_data == IMU330_DEV_ID)
+        {
+              return IMU_TYPE_IMU330BI;
+        }
 	return -1;
 }
 /**
@@ -346,11 +352,14 @@ static void _spi_transfer(void)
         
         //bus_start_transaction(spi_master_dev.bus);
         
-        while(1)
+        //while(1)
         {
                 imu_type = imu_type_check();
                 switch(imu_type)
                 {
+                      case IMU_TYPE_IMU330BI:
+                        printf("IMU TYPE IMU330BI USED\r\n");
+			break;
                       case IMU_TYPE_IMU381ZA:
 			//s_imu_cfg = imu_cfg_imu381;
 			printf("IMU TYPE IMU381 USED\r\n");
@@ -426,8 +435,6 @@ int main(void)
 	bus_configure_slave(spi_master_dev.bus, &spi_master_dev);
 
 	//_display_menu();
-        
-        //led_set(IMU_RST);
         
         _spi_transfer();
         

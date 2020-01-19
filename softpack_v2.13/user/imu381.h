@@ -40,6 +40,7 @@ extern "C" {
 #define IMU381_ZERO_CMD					 0x0000
 
 #define IMU330_REG_PROD_ID		   0x5600
+#define IMU330_DEV_ID		           0x3300
   
 //------------Function----------------------------
 
